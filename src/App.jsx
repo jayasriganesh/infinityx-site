@@ -146,7 +146,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="pt-32 pb-20 px-6 min-h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden">
+    <section ref={containerRef} className="pt-32 pb-20 px-6 min-h-[90vh] flex flex-col items-center justify-center text-center overflow-hidden relative z-10">
       <div ref={textRef} className="max-w-5xl mx-auto z-10">
         <h1 className="text-dynamic-hero text-foreground mb-6 flex flex-wrap justify-center gap-x-4">
           <span className="hero-word overflow-hidden inline-block text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/70">Infrastructure.</span>
@@ -272,7 +272,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <img src={`${import.meta.env.BASE_URL}INFINITYX.png`} alt="InfinityX" className="h-16 brightness-0 invert" />
+              <img src={`${import.meta.env.BASE_URL}INFINITYX.png`} alt="InfinityX" className="h-16" />
             </Link>
             <p className="text-white/60 font-medium max-w-sm mb-6">
               Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions.
@@ -349,16 +349,18 @@ const ScrollToHash = () => {
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToHash />
-      <div className="bg-background min-h-screen text-foreground selection:bg-primary/20 selection:text-primary scroll-smooth flex flex-col pt-24">
+      <div className="bg-background min-h-screen text-foreground selection:bg-primary/20 selection:text-primary scroll-smooth flex flex-col">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-        </Routes>
+        <main className="flex-grow pt-24">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/services" element={<ServicesPage />} />
+          </Routes>
+        </main>
         <Footer />
       </div>
     </Router>
