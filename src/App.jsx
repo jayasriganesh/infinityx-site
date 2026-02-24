@@ -73,10 +73,10 @@ const Navbar = () => {
   return (
     <>
       <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-bento/50 transition-all duration-300">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-bento/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src="/infinitX main logo.png" alt="InfinityX" className="h-20 mix-blend-multiply rounded-sm" />
+            <img src={`${import.meta.env.BASE_URL}INFINITYX.png`} alt="InfinityX" className="h-20" />
           </Link>
           <div className="hidden md:flex space-x-8 text-sm font-medium text-foreground/80">
             <Link to="/products" className="hover:text-primary transition-colors">Interactive Displays</Link>
@@ -155,8 +155,8 @@ const Hero = () => {
           <span className="hero-word inline-block">Intelligent.</span>
           <span className="hero-word inline-block text-primary">Infinite.</span>
         </h1>
-        <p className="hero-sub text-xl md:text-2xl text-foreground/60 max-w-2xl mx-auto mb-12 font-medium tracking-tight">
-          Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions.
+        <p className="hero-sub text-xl md:text-2xl text-foreground/60 max-w-3xl mx-auto mb-12 font-medium tracking-tight">
+          Premier system integration partner delivering high-performance<br className="hidden md:block" /> IT infrastructure and intelligent display solutions.
         </p>
         <div className="hero-sub flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link to="/products" className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
@@ -254,7 +254,7 @@ const ClientMarquee = () => {
         <div className="marquee-track flex gap-12 md:gap-16 px-8 items-center">
           {clients.concat(clients).map((client, i) => (
             <div key={i} className="flex-shrink-0 w-32 h-20 md:w-40 md:h-24 hover:scale-105 transition-transform duration-300">
-              <img src={`/scroll/${client}`} alt={`Ecosystem Partner ${i}`} className="w-full h-full object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity" />
+              <img src={`${import.meta.env.BASE_URL}scroll/${client}`} alt={`Ecosystem Partner ${i}`} className="w-full h-full object-contain mix-blend-multiply opacity-80 hover:opacity-100 transition-opacity" />
             </div>
           ))}
         </div>
@@ -271,7 +271,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-display font-bold mb-6">InfinityX</h2>
+            <Link to="/" className="inline-block mb-6">
+              <img src={`${import.meta.env.BASE_URL}INFINITYX.png`} alt="InfinityX" className="h-16 brightness-0 invert" />
+            </Link>
             <p className="text-white/60 font-medium max-w-sm mb-6">
               Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions.
             </p>
@@ -349,7 +351,7 @@ function App() {
   return (
     <Router>
       <ScrollToHash />
-      <div className="bg-background min-h-screen text-foreground selection:bg-primary/20 selection:text-primary scroll-smooth flex flex-col pt-16">
+      <div className="bg-background min-h-screen text-foreground selection:bg-primary/20 selection:text-primary scroll-smooth flex flex-col pt-24">
         <Navbar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
