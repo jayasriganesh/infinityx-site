@@ -167,7 +167,7 @@ const Hero = () => {
 
       <div className="hero-img w-full max-w-6xl mx-auto mt-20 relative rounded-2xl overflow-hidden shadow-2xl bg-bento aspect-video flex items-center justify-center border border-foreground/5">
         <img
-          src={`${import.meta.env.BASE_URL}scroll/products.png`}
+          src={`${import.meta.env.BASE_URL}scroll/products.png?v=1.1`}
           alt="Premium Smart Display"
           className="absolute inset-0 w-full h-full object-cover opacity-90 mix-blend-multiply"
         />
@@ -208,7 +208,7 @@ const BentoGrid = () => {
               <p className="text-foreground/70 text-xl font-medium max-w-md">Delivering sophisticated CCTV architecture and Command Control Room solutions for total security.</p>
             </div>
             <div className="w-full md:w-1/2 relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-xl">
-              <img src="https://unsplash.com/photos/white-bullet-security-camera-lot-fRVPzBYcd5A" className="w-full h-full object-cover" alt="Command Center" />
+              <img src="https://images.unsplash.com/photo-1557597774-9d273a264a8a?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover" alt="Command Center" />
             </div>
           </div>
         </div>
