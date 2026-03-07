@@ -19,6 +19,8 @@ const SectionHeader = ({ title, subtitle, icon: Icon }) => (
 
 const ProductsPage = () => {
     const containerRef = useRef(null);
+    const [isHeroLoaded, setIsHeroLoaded] = React.useState(false);
+    const [isFeatureLoaded, setIsFeatureLoaded] = React.useState(false);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -61,7 +63,14 @@ const ProductsPage = () => {
                         </div>
                     </div>
                     <div className="relative">
-                        <img src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`} alt="Flagship Display" className="rounded-3xl shadow-2xl relative z-10" loading="eager" fetchpriority="high" />
+                        <img
+                            src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`}
+                            alt="Flagship Display"
+                            className={`rounded-3xl shadow-2xl relative z-10 transition-opacity duration-700 ${isHeroLoaded ? 'opacity-100' : 'opacity-0'}`}
+                            loading="eager"
+                            fetchpriority="high"
+                            onLoad={() => setIsHeroLoaded(true)}
+                        />
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#FF9F1B]/20 rounded-full blur-[100px] pointer-events-none"></div>
                     </div>
                 </div>
@@ -107,7 +116,12 @@ const ProductsPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                             <div className="relative order-2 md:order-1">
                                 <div className="w-full aspect-square bg-bento rounded-full absolute -top-10 -left-10 blur-3xl opacity-50"></div>
-                                <img src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`} className="rounded-3xl shadow-xl relative z-10 mix-blend-multiply" alt="Features Detail" />
+                                <img
+                                    src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`}
+                                    className={`rounded-3xl shadow-xl relative z-10 mix-blend-multiply transition-opacity duration-700 ${isFeatureLoaded ? 'opacity-100' : 'opacity-0'}`}
+                                    alt="Features Detail"
+                                    onLoad={() => setIsFeatureLoaded(true)}
+                                />
                             </div>
                             <div className="space-y-6 order-1 md:order-2">
                                 <div className="border-l-4 border-[#FF9F1B] pl-6 py-2">

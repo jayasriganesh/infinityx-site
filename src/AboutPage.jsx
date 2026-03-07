@@ -2,6 +2,7 @@ import React from 'react';
 import { Target, Compass, Award, CheckCircle2 } from 'lucide-react';
 
 const AboutPage = () => {
+    const [isLoaded, setIsLoaded] = React.useState(false);
     return (
         <div className="pt-32 pb-20 px-6 min-h-screen bg-background">
             <div className="max-w-7xl mx-auto">
@@ -26,7 +27,14 @@ const AboutPage = () => {
                         </div>
                     </div>
                     <div className="bg-bento rounded-3xl p-10 relative overflow-hidden h-full min-h-[400px] flex items-center justify-center border border-foreground/5 shadow-xl">
-                        <img src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`} alt="Team meeting" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-80" loading="eager" fetchpriority="high" />
+                        <img
+                            src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`}
+                            alt="Team meeting"
+                            className={`absolute inset-0 w-full h-full object-cover mix-blend-multiply transition-opacity duration-700 ${isLoaded ? 'opacity-80' : 'opacity-0'}`}
+                            loading="eager"
+                            fetchpriority="high"
+                            onLoad={() => setIsLoaded(true)}
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
                     </div>
                 </div>
