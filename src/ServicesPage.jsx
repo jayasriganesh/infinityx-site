@@ -93,7 +93,7 @@ const ServiceSection = ({ image, imageAlt, badge, title, description, features, 
                 </div>
 
                 {/* Image block */}
-                <div className="ss-img relative lg:[direction:ltr] lg:col-span-3 min-h-[400px] flex items-center justify-center bg-foreground/[0.02] rounded-3xl overflow-hidden">
+                <div className="ss-img relative lg:[direction:ltr] lg:col-span-3 min-h-[400px] flex items-center justify-center rounded-3xl overflow-hidden">
                     <div className="absolute inset-0 -m-12 bg-[#FF9F1B]/5 rounded-3xl blur-3xl pointer-events-none" />
                     <img
                         src={image}
