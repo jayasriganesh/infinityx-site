@@ -289,7 +289,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <img src={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/INFINITYX.png`} alt="InfinityX" className="h-16" />
+              <img src={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/INTERACTIVE%20SMART%20BOARD.png`} alt="InfinityX" className="h-16" />
             </Link>
             <p className="text-white/60 font-medium max-w-sm mb-6">
               Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions.
