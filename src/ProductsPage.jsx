@@ -61,7 +61,7 @@ const ProductsPage = () => {
                         </div>
                     </div>
                     <div className="relative">
-                        <img src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`} alt="Flagship Display" className="rounded-3xl shadow-2xl relative z-10" />
+                        <img src={`${import.meta.env.BASE_URL}scroll/cc_cams.jpeg?v=2`} alt="Flagship Display" className="rounded-3xl shadow-2xl relative z-10" loading="eager" fetchpriority="high" />
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[#FF9F1B]/20 rounded-full blur-[100px] pointer-events-none"></div>
                     </div>
                 </div>

@@ -86,6 +86,8 @@ const ServiceSection = ({ image, imageAlt, badge, title, description, features, 
                     <img
                         src={image}
                         alt={imageAlt}
+                        loading="eager"
+                        fetchpriority="high"
                         className="relative w-full max-h-[800px] object-contain drop-shadow-2xl"
                     />
                 </div>

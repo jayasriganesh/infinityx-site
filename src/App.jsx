@@ -225,6 +225,8 @@ const ScrollSection = ({ image, imageAlt, badge, title, description, ctaLabel, c
           <img
             src={image}
             alt={imageAlt}
+            loading="eager"
+            fetchpriority="high"
             className="relative w-full max-h-[800px] object-contain drop-shadow-2xl"
           />
         </div>
