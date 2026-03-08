@@ -21,7 +21,7 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F9F9F9] border-b border-bento/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/INFINITYX.png`} alt="InfinityX" className="h-20" />
+            <img src={`${import.meta.env.BASE_URL}images/INFINITYX.png`} alt="InfinityX" className="h-20" />
           </Link>
           <div className="hidden md:flex space-x-8 text-sm font-medium text-foreground/80">
             <Link to="/products" className="hover:text-[#FF9F1B] transition-colors">Interactive Displays</Link>
@@ -235,7 +235,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
-              <img src={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/INTERACTIVE%20SMART%20BOARD.png`} alt="InfinityX" className="h-16" />
+              <img src={`${import.meta.env.BASE_URL}images/INTERACTIVE SMART BOARD.png`} alt="InfinityX" className="h-16" />
             </Link>
             <p className="text-white/60 font-medium max-w-sm mb-6">
               Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions.
@@ -287,7 +287,7 @@ const LandingPage = () => (
 
     {/* Scroll-2: Interactive Displays */}
     <ScrollSection
-      image={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/home_page_final.jpeg`}
+      image={`${import.meta.env.BASE_URL}images/home_page_final.jpeg`}
       imageAlt="InfinityX Interactive Displays"
       badge="Flagship Product"
       title="Interactive Displays. Built for Learning & Business."
@@ -299,7 +299,7 @@ const LandingPage = () => (
 
     {/* Scroll-3: Holistic Integration */}
     <ScrollSection
-      image={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/Network.png`}
+      image={`${import.meta.env.BASE_URL}images/Network.png`}
       imageAlt="Holistic Network Integration"
       badge="End-to-End Integration"
       title="Holistic Integration. Connecting Every Layer."
@@ -311,7 +311,7 @@ const LandingPage = () => (
 
     {/* Scroll-4: Intelligent Surveillance */}
     <ScrollSection
-      image={`${import.meta.env.BASE_URL}MATRIX%20PRODUCTS%20VISULAID%20(3)/ccCamera.png`}
+      image={`${import.meta.env.BASE_URL}images/ccCamera.png`}
       imageAlt="Intelligent Surveillance Systems"
       badge="Security & Surveillance"
       title="Intelligent Surveillance. Total Control."

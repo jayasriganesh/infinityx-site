@@ -58,7 +58,7 @@ const ContactPage = () => {
                 {/* Products Visual Banner */}
                 <div className="anim-up mb-20 relative flex items-center justify-center">
                     <img
-                        src={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/contact-sales.png`}
+                        src={`${import.meta.env.BASE_URL}images/contact-sales.png`}
                         alt="InfinityX Product Solutions"
                         className="relative z-10 w-full max-w-6xl h-auto object-contain select-none"
                     />

@@ -46,7 +46,7 @@ const AboutPage = () => {
             {/* 1. Header & Logo */}
             <header className="pt-32 pb-16 px-6 text-left max-w-7xl mx-auto flex flex-col items-start">
                 <img
-                    src={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/INFINITYX.png`}
+                    src={`${import.meta.env.BASE_URL}images/INFINITYX.png`}
                     alt="Matrix Edge Computers / InfinityX Logo"
                     className="h-24 md:h-32 object-contain mb-8 filter drop-shadow-sm fade-up"
                 />

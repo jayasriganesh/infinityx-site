@@ -406,7 +406,7 @@ const ProductsPage = () => {
 
             {/* ── Section 1: Scroll-1 — Eco Interactive Display ── */}
             <DisplaySection
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ID.jpg`}
+                image={`${import.meta.env.BASE_URL}images/ID.jpg`}
                 imageAlt="Eco Interactive Display for Education"
                 badge="Interactive Displays · Education"
                 title="Eco Interactive Display."
@@ -422,7 +422,7 @@ const ProductsPage = () => {
 
             {/* ── Section 1: Scroll-2 — AI Interactive Whiteboard ── */}
             <DisplaySection
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ID2.png`}
+                image={`${import.meta.env.BASE_URL}images/ID2.png`}
                 imageAlt="Interactive Whiteboard with AI Software for Education"
                 badge="Interactive Displays · Flagship AI"
                 title="Interactive Whiteboard. AI Inside."
@@ -439,7 +439,7 @@ const ProductsPage = () => {
 
             {/* ── Section 1: Scroll-3 — Corporate Interactive Display ── */}
             <DisplaySection
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ID3.jpg`}
+                image={`${import.meta.env.BASE_URL}images/ID3.jpg`}
                 imageAlt="Corporate Interactive Display"
                 badge="Interactive Displays · Enterprise"
                 title="Corporate Interactive Display."
@@ -465,7 +465,7 @@ const ProductsPage = () => {
 
             {/* ── Section 5: Digital Signage ── */}
             <DisplaySection
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/DigitalSignage.jpeg`}
+                image={`${import.meta.env.BASE_URL}images/DigitalSignage.jpeg`}
                 imageAlt="Digital Signage"
                 badge="Commercial Displays · Signage"
                 title="Digital Signage Solutions."

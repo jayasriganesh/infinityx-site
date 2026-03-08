@@ -104,7 +104,7 @@ const ServicesPage = () => {
             <ServiceSection
                 title="Next-Gen SmartClass."
                 description="Transforming traditional classrooms into interactive, AI-powered learning environments designed for high engagement and modern pedagogy."
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/SmartClass.png`}
+                image={`${import.meta.env.BASE_URL}images/SmartClass.png`}
                 imageAlt="SmartClass Solutions"
                 imageOnRight={true}
             />
@@ -119,7 +119,7 @@ const ServicesPage = () => {
                     "Bandwidth Management"
                 ]}
                 partners={["D-Link", "tp-link", "Ubiquiti", "Cisco"]}
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/Network.png`}
+                image={`${import.meta.env.BASE_URL}images/Network.png`}
                 imageAlt="Networking Infrastructure"
                 imageOnRight={false}
             />
@@ -134,7 +134,7 @@ const ServicesPage = () => {
                     "Access Control & Boom Barriers",
                     "Premium Camera Solutions"
                 ]}
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ccCamera.png`}
+                image={`${import.meta.env.BASE_URL}images/ccCamera.png`}
                 imageAlt="Surveillance Systems"
                 imageOnRight={true}
             />
