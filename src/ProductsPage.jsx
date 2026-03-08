@@ -439,7 +439,7 @@ const ProductsPage = () => {
 
             {/* ── Section 1: Scroll-3 — Corporate Interactive Display ── */}
             <DisplaySection
-                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ID3.png`}
+                image={`${import.meta.env.BASE_URL}MATRIX PRODUCTS VISULAID (3)/ID3.jpg`}
                 imageAlt="Corporate Interactive Display"
                 badge="Interactive Displays · Enterprise"
                 title="Corporate Interactive Display."
