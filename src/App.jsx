@@ -7,73 +7,17 @@ import ProductsPage from './ProductsPage';
 import AboutPage from './AboutPage';
 import ServicesPage from './ServicesPage';
 import ClientsPage from './ClientsPage';
+import ContactPage from './ContactPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ContactModal = ({ isOpen, onClose }) => {
-  const [status, setStatus] = useState('');
 
-  if (!isOpen) return null;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setStatus('Sending...');
-    setTimeout(() => {
-      setStatus('Success! We will contact you soon.');
-      setTimeout(() => {
-        setStatus('');
-        onClose();
-      }, 2000);
-    }, 1500);
-  };
-
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-background/80 backdrop-blur-md">
-      <div className="bg-bento border border-foreground/10 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative">
-        <button onClick={onClose} className="absolute top-6 right-6 text-foreground/50 hover:text-foreground transition-colors">
-          <X size={24} />
-        </button>
-        <div className="p-8 sm:p-10">
-          <h3 className="text-3xl font-display font-bold mb-2">Contact Sales.</h3>
-          <p className="text-foreground/60 font-medium mb-8">Get in touch with our enterprise team to discuss your bespoke infrastructure needs.</p>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-semibold text-foreground/80 mb-2">Name</label>
-              <input type="text" required className="w-full bg-background border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:border-[#FF9F1B] transition-colors text-foreground" placeholder="John Doe" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-foreground/80 mb-2">Email Address</label>
-              <input type="email" required className="w-full bg-background border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:border-[#FF9F1B] transition-colors text-foreground" placeholder="john@company.com" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-foreground/80 mb-2">Inquiry Type</label>
-              <select className="w-full bg-background border border-foreground/10 rounded-xl px-4 py-3 outline-none focus:border-[#FF9F1B] transition-colors text-foreground appearance-none">
-                <option>Interactive Displays</option>
-                <option>Campus Infrastructure</option>
-                <option>Digital Signage</option>
-                <option>Other Services</option>
-              </select>
-            </div>
-            <div className="pt-4 flex items-center gap-4">
-              <button type="submit" disabled={status !== ''} className="bg-[#FF9F1B] text-white font-medium px-8 py-3 rounded-xl hover:bg-[#FF9F1B]/90 transition-colors flex-1 shadow-sm disabled:opacity-50">
-                {status || "Submit Inquiry"}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <>
-      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F9F9F9] border-b border-bento/50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -86,9 +30,9 @@ const Navbar = () => {
             <Link to="/clients" className="hover:text-[#FF9F1B] transition-colors">Clients</Link>
           </div>
           <div className="hidden md:flex">
-            <button onClick={() => setIsContactModalOpen(true)} className="bg-[#FF9F1B] text-white px-4 py-2 rounded-full text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 transition-colors font-medium shadow-md">
+            <Link to="/contact" className="bg-[#FF9F1B] text-white px-5 py-2.5 rounded-full text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 transition-all hover:scale-105 active:scale-95 font-bold shadow-md shadow-[#FF9F1B]/20">
               Contact Sales <ChevronRight size={16} />
-            </button>
+            </Link>
           </div>
           <div className="md:hidden flex items-center">
             <button onClick={() => setIsOpen(!isOpen)} className="text-foreground focus:outline-none">
@@ -104,9 +48,9 @@ const Navbar = () => {
             <Link to="/services" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Digital Solutions</Link>
             <Link to="/about" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Company</Link>
             <Link to="/clients" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Clients</Link>
-            <button onClick={() => setIsContactModalOpen(true)} className="bg-foreground text-background px-4 py-2 rounded-full text-sm flex items-center justify-center gap-2 hover:bg-foreground/90 transition-colors font-medium">
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="bg-foreground text-background px-4 py-3 rounded-full text-sm flex items-center justify-center gap-2 hover:bg-foreground/90 transition-colors font-bold">
               Contact Sales <ChevronRight size={16} />
-            </button>
+            </Link>
           </div>
         )}
       </nav>
@@ -307,10 +251,10 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-6">Products</h4>
             <ul className="space-y-4 text-white/60 font-medium">
-              <li><Link to="/products" className="hover:text-white transition-colors">Education Panels</Link></li>
-              <li><Link to="/products" className="hover:text-white transition-colors">Pro Series Panels</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Digital Signage</Link></li>
-              <li><Link to="/services" className="hover:text-white transition-colors">Video Conferencing</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Eco Interactive Display</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Interactive Whiteboard</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Corporate Display</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Digital Signage</Link></li>
             </ul>
           </div>
 
@@ -416,6 +360,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/clients" element={<ClientsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
         <Footer />
