@@ -101,8 +101,15 @@ const ServicesPage = () => {
 
             {/* Section 1: SmartClass */}
             <ServiceSection
-                title="Next-Gen SmartClass."
-                description="Transforming traditional classrooms into interactive, AI-powered learning environments designed for high engagement and modern pedagogy."
+                title="AI-Powered SmartClass."
+                description="The EyeRIS A10 Pro transforms classrooms into intelligent hubs. Automate lesson planning, summarize complex content in seconds, and track student engagement with built-in behavioral AI — creating a truly hybrid-ready learning environment."
+                features={[
+                    "AI Lesson Generation (5E & Bloom's)",
+                    "Infinite Canvas & 3D Interactive Labs",
+                    "Automated Attendance & Grading",
+                    "Hybrid Ready: Remote Classroom Feed",
+                    "Real-time AI Engagement Reports"
+                ]}
                 image={`${import.meta.env.BASE_URL}images/SmartClass.png`}
                 imageAlt="SmartClass Solutions"
                 imageOnRight={true}

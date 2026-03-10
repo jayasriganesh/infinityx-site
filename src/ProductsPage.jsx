@@ -1,72 +1,114 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-    CheckCircle2, Cpu, Play, Users, BookOpen, Shield, ShieldCheck,
-    Zap, Monitor, Layers, Star, Wifi, PenTool, ChevronRight, LayoutTemplate, ArrowRight
+    Monitor, Cpu, Wifi, Shield, Zap, Star, LayoutTemplate, Server,
+    Mic, Camera, ChevronRight, ArrowRight, CheckCircle2, Minus,
+    MapPin, Phone, Mail, Play, BookOpen, Users, ShieldCheck, Layers,
+    Volume2, MemoryStick, HardDrive, Touchpad, Maximize2, Bot,
+    PenTool, MessageSquare, SlidersHorizontal, Subtitles, Search,
+    ScreenShare, Lightbulb, Network
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ─────────────────────────────────────────────────────────────
-// Cinematic scroll section — mirrors ServicesPage.ServiceSection
-// ─────────────────────────────────────────────────────────────
-const DisplaySection = ({ image, imageAlt, badge, title, description, features, imageOnRight = true, accentColor = '#FF9F1B' }) => {
+const BASE = import.meta.env.BASE_URL;
+
+// ─── IMAGES ──────────────────────────────────────────────────────────────────
+// Value Series: one image per size (all map to ID.jpg — no separate size images)
+const VALUE_IMAGES = {
+    '65"': `${BASE}images/ID.jpg`,
+    '75"': `${BASE}images/ID.jpg`,
+    '86"': `${BASE}images/ID.jpg`,
+};
+const CSERIES_IMAGES = {
+    '65"': `${BASE}images/ID3.jpg`,
+    '75"': `${BASE}images/ID3.jpg`,
+    '86"': `${BASE}images/ID3.jpg`,
+};
+const PRO_IMAGE = `${BASE}images/ID2.png`;
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 1 — HERO
+// ═══════════════════════════════════════════════════════════════════════
+const Hero = ({ onExplore, onCompare }) => {
     const ref = useRef(null);
 
     useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
         const ctx = gsap.context(() => {
-            gsap.from(el.querySelectorAll('.ss-text'), {
-                scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
-                opacity: 0,
-                x: imageOnRight ? -60 : 60,
-                duration: 1,
-                stagger: 0.1,
-                ease: 'power3.out',
+            gsap.set(['.hero-tag', '.hero-h1', '.hero-body', '.hero-pills', '.hero-btns'], {
+                opacity: 0, y: 40, willChange: 'transform, opacity',
             });
-            gsap.from(el.querySelectorAll('.ss-img'), {
-                scrollTrigger: { trigger: el, start: 'top 80%', toggleActions: 'play none none none' },
-                opacity: 0,
-                x: imageOnRight ? 60 : -60,
-                scale: 0.95,
-                duration: 1.2,
-                ease: 'power2.out',
-            });
-        }, el);
+            gsap.set('.hero-panel', { opacity: 0, x: 60, scale: 0.95, willChange: 'transform, opacity' });
+
+            const tl = gsap.timeline({ delay: 0.1 });
+            tl.to('.hero-tag', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', clearProps: 'willChange' })
+                .to('.hero-h1', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', clearProps: 'willChange' }, '-=0.4')
+                .to('.hero-body', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', clearProps: 'willChange' }, '-=0.5')
+                .to('.hero-btns', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', clearProps: 'willChange' }, '-=0.4')
+                .to('.hero-pills', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', clearProps: 'willChange' }, '-=0.3')
+                .to('.hero-panel', { opacity: 1, x: 0, scale: 1, duration: 1.2, ease: 'power2.out', clearProps: 'willChange' }, '-=1.1');
+        }, ref);
         return () => ctx.revert();
-    }, [imageOnRight]);
+    }, []);
 
     return (
-        <section ref={ref} className="min-h-screen flex items-center bg-background border-t border-bento/50 py-32 px-6 overflow-hidden">
-            <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
-                {/* Text block */}
-                <div className="lg:[direction:ltr] lg:col-span-2 space-y-8">
-                    <span className="ss-text block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">{badge}</span>
-                    <h2 className="ss-text text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.1]">{title}</h2>
-                    <p className="ss-text text-lg md:text-xl text-foreground/60 font-medium max-w-xl leading-relaxed">{description}</p>
-                    {features && (
-                        <ul className="ss-text space-y-4 pt-2">
-                            {features.map((f, i) => (
-                                <li key={i} className="flex items-center gap-3 font-semibold text-foreground/80 text-base">
-                                    <CheckCircle2 className="w-5 h-5 flex-shrink-0" style={{ color: accentColor }} />
-                                    {f}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+        <section ref={ref} className="min-h-screen bg-background flex items-center px-6 py-32 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-11 gap-16 items-center">
+
+                {/* Left: Text (55%) */}
+                <div className="lg:col-span-6 space-y-8">
+                    <span className="hero-tag inline-block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">
+                        InfinityX · Interactive Displays
+                    </span>
+
+                    <h1 className="hero-h1 font-display font-extrabold text-6xl md:text-7xl tracking-tighter text-foreground leading-[1.05]">
+                        Interactive Displays.<br />
+                        Built for <span className="text-[#FF9F1B]">Every</span> Classroom.
+                    </h1>
+
+                    <p className="hero-body text-lg md:text-xl text-foreground/60 font-medium max-w-lg leading-relaxed">
+                        Three series. One purpose — transform how teachers teach and
+                        students learn, across every budget and every environment.
+                    </p>
+
+                    <div className="hero-btns flex flex-wrap gap-4">
+                        <button
+                            onClick={onExplore}
+                            className="bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-base flex items-center gap-2 hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#FF9F1B]/20"
+                        >
+                            Explore Series <ArrowRight size={18} />
+                        </button>
+                        <button
+                            onClick={onCompare}
+                            className="bg-transparent text-foreground px-8 py-4 rounded-full font-bold text-base flex items-center gap-2 border border-foreground/20 hover:border-[#FF9F1B] hover:text-[#FF9F1B] transition-all"
+                        >
+                            Compare Panels <ChevronRight size={18} />
+                        </button>
+                    </div>
+
+                    {/* Size pills — static labels */}
+                    <div className="hero-pills flex items-center gap-3">
+                        <span className="text-foreground/40 text-sm font-bold uppercase tracking-widest">Available in</span>
+                        {['65"', '75"', '86"'].map((s, i) => (
+                            <span key={s} className={`px-4 py-1.5 rounded-full text-sm font-bold transition-colors ${i === 1 ? 'bg-[#FF9F1B] text-white' : 'bg-bento text-foreground/60'}`}>
+                                {s}
+                            </span>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Image block */}
-                <div className="ss-img relative lg:[direction:ltr] lg:col-span-3">
-                    <div className="absolute inset-0 -m-12 bg-[#FF9F1B]/5 rounded-3xl blur-3xl pointer-events-none" />
+                {/* Right: Panel image (45%) */}
+                <div className="hero-panel relative lg:col-span-5">
+                    <div className="absolute inset-0 -m-16 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none" />
                     <img
-                        src={image}
-                        alt={imageAlt}
+                        src={PRO_IMAGE}
+                        alt="InfinityX Interactive Display"
                         loading="eager"
                         fetchpriority="high"
-                        className="relative w-full max-h-[800px] object-contain drop-shadow-2xl"
+                        className="relative w-full max-h-[700px] object-contain drop-shadow-2xl"
                     />
                 </div>
             </div>
@@ -74,320 +116,761 @@ const DisplaySection = ({ image, imageAlt, badge, title, description, features, 
     );
 };
 
-// ─────────────────────────────────────────────────────────────
-// Section 2 — Comparison Table
-// ─────────────────────────────────────────────────────────────
-const ComparisonSection = () => {
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 2 — STICKY SERIES NAV
+// ═══════════════════════════════════════════════════════════════════════
+const SERIES_TABS = [
+    { id: 'value', label: 'VALUE SERIES' },
+    { id: 'cseries', label: 'C-SERIES' },
+    { id: 'pro', label: 'PRO SERIES' },
+];
+
+const SeriesNav = ({ activeTab, onTabClick, onCompare }) => {
+    return (
+        <div className="sticky top-24 z-40 bg-[#F9F9F9] border-b border-bento/50">
+            <div className="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
+                <div className="flex items-center gap-2 md:gap-6">
+                    {SERIES_TABS.map(tab => (
+                        <button
+                            key={tab.id}
+                            onClick={() => onTabClick(tab.id)}
+                            className="relative h-14 flex items-center px-2 font-bold text-xs tracking-widest uppercase transition-colors"
+                            style={{ color: activeTab === tab.id ? '#1D1D1F' : 'rgba(29,29,31,0.5)' }}
+                        >
+                            {tab.label}
+                            {activeTab === tab.id && (
+                                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF9F1B] rounded-full" />
+                            )}
+                        </button>
+                    ))}
+                </div>
+                <button
+                    onClick={onCompare}
+                    className="hidden md:flex items-center gap-1 text-[#FF9F1B] font-bold text-xs tracking-widest uppercase hover:gap-2 transition-all"
+                >
+                    Compare All <ChevronRight size={14} />
+                </button>
+            </div>
+        </div>
+    );
+};
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 3 — VALUE SERIES
+// ═══════════════════════════════════════════════════════════════════════
+const VALUE_SPECS = [
+    { icon: <Monitor className="w-6 h-6" />, value: '4K UHD', label: 'Anti-Glare Display' },
+    { icon: <Touchpad className="w-6 h-6" />, value: '20-Point', label: 'Multi-Touch Screen' },
+    { icon: <Volume2 className="w-6 h-6" />, value: '20W × 2', label: 'Built-in Speakers' },
+    { icon: <Cpu className="w-6 h-6" />, value: 'Android 14', label: 'Operating System' },
+    { icon: <MemoryStick className="w-6 h-6" />, value: '8GB RAM', label: 'Memory' },
+    { icon: <HardDrive className="w-6 h-6" />, value: '128GB', label: 'Internal Storage' },
+];
+
+const VALUE_SIZE_DESC = {
+    '65"': 'Ideal for classrooms of up to 25 students.',
+    '75"': 'Ideal for classrooms of up to 35 students.',
+    '86"': 'Ideal for large halls and lecture theatres.',
+};
+
+const ValueSeries = () => {
+    const [activeSize, setActiveSize] = useState('75"');
     const ref = useRef(null);
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.from('.fade-up', {
-                scrollTrigger: { trigger: ref.current, start: 'top 80%' },
-                y: 40, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out'
+            gsap.from(ref.current.querySelectorAll('.vs-text'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 40, duration: 0.9, stagger: 0.1, ease: 'power3.out',
+            });
+            gsap.from(ref.current.querySelectorAll('.vs-img'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+                opacity: 0, x: 60, scale: 0.95, duration: 1.2, ease: 'power2.out',
+            });
+            gsap.from(ref.current.querySelectorAll('.vs-card'), {
+                scrollTrigger: { trigger: ref.current.querySelector('.vs-grid'), start: 'top 85%', toggleActions: 'play none none none' },
+                opacity: 0, y: 30, duration: 0.6, stagger: 0.08, ease: 'power3.out',
             });
         }, ref);
         return () => ctx.revert();
     }, []);
 
-    const specs = [
-        {
-            category: 'Display Resolution',
-            eco: '4K UHD (3840×2160)',
-            pro: '4K UHD (3840×2160)',
-            corporate: '4K UHD (3840×2160)',
-        },
-        {
-            category: 'Touch Points',
-            eco: '20-point multi-touch',
-            pro: '20-point multi-touch',
-            corporate: '40-point multi-touch',
-        },
-        {
-            category: 'Built-in AI',
-            eco: '—',
-            pro: 'AI whiteboard, Q&A, subtitles',
-            corporate: 'AI whiteboard, framing, subtitles',
-        },
-        {
-            category: 'Built-in Camera',
-            eco: 'Optional add-on',
-            pro: '12MP AI auto-framing camera',
-            corporate: '12MP AI auto-framing camera',
-        },
-        {
-            category: 'Audio',
-            eco: 'Dual 20W speakers',
-            pro: 'Dual 20W + 8-array mic',
-            corporate: 'Dual 20W + 8-array mic',
-        },
-        {
-            category: 'OS & Software',
-            eco: 'Android 11, basic suite',
-            pro: 'Android 13 + EDLA, education AI suite',
-            corporate: 'Android 13 + EDLA, enterprise suite',
-        },
-        {
-            category: 'Google EDLA',
-            eco: '—',
-            pro: '✓ Full EDLA certified',
-            corporate: '✓ Full EDLA certified',
-        },
-        {
-            category: 'Writing Latency',
-            eco: '< 8ms',
-            pro: '< 8ms',
-            corporate: '< 8ms',
-        },
-        {
-            category: 'Glass',
-            eco: '7H anti-glare tempered',
-            pro: '7H anti-glare tempered',
-            corporate: '7H anti-glare tempered',
-        },
-        {
-            category: 'Warranty',
-            eco: '3-year onsite',
-            pro: '3-year onsite',
-            corporate: '3-year onsite',
-        },
-    ];
+    return (
+        <section id="value" ref={ref} className="min-h-screen bg-background border-t border-bento/50 py-32 px-6 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
+
+                {/* Left: Text block */}
+                <div className="lg:col-span-2 space-y-8">
+                    <span className="vs-text block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">
+                        Value Series
+                    </span>
+                    <h2 className="vs-text font-display font-bold text-5xl md:text-6xl tracking-tight text-foreground leading-[1.1]">
+                        Smart Learning.<br />Without Compromise.
+                    </h2>
+                    <p className="vs-text text-lg text-foreground/60 font-medium leading-relaxed max-w-md">
+                        Enterprise-grade touch technology and crystal-clear 4K UHD display, engineered to fit every school budget without cutting corners on quality.
+                    </p>
+
+                    {/* Interactive size selector */}
+                    <div className="vs-text space-y-3">
+                        <p className="text-sm font-bold text-foreground/40 uppercase tracking-widest">Select Size</p>
+                        <div className="flex gap-3">
+                            {Object.keys(VALUE_SIZE_DESC).map(size => (
+                                <button
+                                    key={size}
+                                    onClick={() => setActiveSize(size)}
+                                    className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${activeSize === size
+                                            ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                            : 'bg-bento text-foreground/60 hover:bg-bento/80'
+                                        }`}
+                                >
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                        <p className="text-sm font-medium text-foreground/50 transition-all">{VALUE_SIZE_DESC[activeSize]}</p>
+                    </div>
+
+                    {/* Spec grid */}
+                    <div className="vs-grid grid grid-cols-3 gap-3">
+                        {VALUE_SPECS.map((spec, i) => (
+                            <div key={i} className="vs-card bg-bento rounded-2xl p-4 flex flex-col gap-2 border border-foreground/5 hover:border-[#FF9F1B]/30 transition-colors shadow-sm">
+                                <span className="text-[#FF9F1B]">{spec.icon}</span>
+                                <span className="font-bold text-foreground text-sm leading-tight">{spec.value}</span>
+                                <span className="text-foreground/50 text-xs font-medium">{spec.label}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="vs-text">
+                        <Link
+                            to="/contact"
+                            className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#FF9F1B]/20"
+                        >
+                            Enquire About Value Series <ArrowRight size={18} />
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Right: Panel image */}
+                <div className="vs-img relative lg:col-span-3">
+                    <div className="absolute inset-0 -m-12 bg-[#FF9F1B]/6 rounded-3xl blur-3xl pointer-events-none" />
+                    <img
+                        key={activeSize}
+                        src={VALUE_IMAGES[activeSize]}
+                        alt="InfinityX Value Series Interactive Display"
+                        loading="eager"
+                        className="relative w-full max-h-[800px] object-contain drop-shadow-2xl transition-opacity duration-300"
+                    />
+                </div>
+            </div>
+        </section>
+    );
+};
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 4 — C-SERIES (CORPORATE) — DARK
+// ═══════════════════════════════════════════════════════════════════════
+const CSERIES_FEATURES = [
+    { icon: <Users className="w-5 h-5" />, title: 'Google Workspace Integration', desc: 'Native access to Docs, Sheets, Meet and Drive from the display.' },
+    { icon: <ScreenShare className="w-5 h-5" />, title: 'Wireless Screen Sharing', desc: '4-device simultaneous casting. Zero cables, zero friction.' },
+    { icon: <SlidersHorizontal className="w-5 h-5" />, title: 'Remote Control Management', desc: 'Centrally manage every panel in your building from one dashboard.' },
+    { icon: <LayoutTemplate className="w-5 h-5" />, title: 'Corporate Dashboard', desc: 'Launch boardroom-ready dashboards, schedules, and KPIs instantly.' },
+    { icon: <Wifi className="w-5 h-5" />, title: 'Proximity Sensor', desc: 'Auto-wakes the display when someone enters the room.' },
+    { icon: <Network className="w-5 h-5" />, title: 'Enterprise Sync', desc: 'Syncs with Microsoft 365, Teams, Zoom, and enterprise SSO.' },
+];
+
+const CSeries = () => {
+    const [activeSize, setActiveSize] = useState('75"');
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(ref.current.querySelectorAll('.cs-text'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 40, duration: 0.9, stagger: 0.1, ease: 'power3.out',
+            });
+            gsap.from(ref.current.querySelectorAll('.cs-img'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+                opacity: 0, x: -60, scale: 0.95, duration: 1.2, ease: 'power2.out',
+            });
+        }, ref);
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <section ref={ref} className="py-24 bg-bento border-t border-foreground/5">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center max-w-3xl mx-auto mb-16 fade-up">
-                    <div className="inline-flex items-center justify-center p-4 bg-[#FF9F1B]/10 rounded-2xl mb-6">
-                        <Layers className="w-8 h-8 text-[#FF9F1B]" />
-                    </div>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-foreground">
-                        Compare the Panels.
+        <section id="cseries" ref={ref} className="min-h-screen bg-foreground border-t border-[#FF9F1B]/20 py-32 px-6 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
+
+                {/* Left: Panel image */}
+                <div className="cs-img relative lg:col-span-3 order-2 lg:order-1">
+                    <div className="absolute inset-0 -m-12 bg-[#FF9F1B]/10 rounded-3xl blur-3xl pointer-events-none" />
+                    <img
+                        src={CSERIES_IMAGES[activeSize]}
+                        alt="InfinityX C-Series Corporate Display"
+                        loading="eager"
+                        className="relative w-full max-h-[800px] object-contain drop-shadow-2xl"
+                    />
+                </div>
+
+                {/* Right: Text block */}
+                <div className="lg:col-span-2 space-y-8 order-1 lg:order-2">
+                    <span className="cs-text inline-flex items-center gap-2 text-white/60 font-bold tracking-[0.2em] uppercase text-xs md:text-sm">
+                        <span className="bg-white/10 px-3 py-1 rounded-full">C-Series · Corporate</span>
+                    </span>
+                    <h2 className="cs-text font-display font-bold text-5xl md:text-6xl tracking-tight text-white leading-[1.1]">
+                        The Boardroom.<br />The Classroom. <span className="text-[#FF9F1B]">Both.</span>
                     </h2>
-                    <p className="text-xl text-foreground/70 font-medium">
-                        Find the right InfinityX display for your environment with a side-by-side specification breakdown.
+                    <p className="cs-text text-lg text-white/60 font-medium leading-relaxed max-w-md">
+                        Purpose-built for hybrid environments. The C-Series unifies corporate-grade collaboration tools with classroom-ready interactive technology.
+                    </p>
+
+                    {/* Feature list */}
+                    <ul className="cs-text space-y-5">
+                        {CSERIES_FEATURES.map((f, i) => (
+                            <li key={i} className="flex items-start gap-4">
+                                <span className="text-[#FF9F1B] shrink-0 mt-0.5">{f.icon}</span>
+                                <div>
+                                    <span className="font-bold text-white text-sm block">{f.title}</span>
+                                    <span className="text-white/50 text-sm font-medium">{f.desc}</span>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+
+                    {/* Size selector — dark version */}
+                    <div className="cs-text space-y-3">
+                        <p className="text-sm font-bold text-white/40 uppercase tracking-widest">Select Size</p>
+                        <div className="flex gap-3">
+                            {['65"', '75"', '86"'].map(size => (
+                                <button
+                                    key={size}
+                                    onClick={() => setActiveSize(size)}
+                                    className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${activeSize === size
+                                            ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                            : 'bg-white/10 text-white hover:bg-white/15'
+                                        }`}
+                                >
+                                    {size}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="cs-text">
+                        <Link
+                            to="/contact"
+                            className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF9F1B]/20"
+                        >
+                            Enquire About C-Series <ArrowRight size={18} />
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 5 — PRO SERIES
+// ═══════════════════════════════════════════════════════════════════════
+const PRO_HARDWARE_STATS = [
+    { value: '450', unit: 'nits', label: 'Brightness' },
+    { value: '100,000', unit: ':1', label: 'Contrast Ratio' },
+    { value: '< 2', unit: 'ms', label: 'Touch Latency' },
+    { value: '50', unit: 'MP', label: 'AI Camera' },
+    { value: 'Mohs 9', unit: '', label: 'Glass Hardness' },
+    { value: '8', unit: 'GB', label: 'RAM' },
+];
+
+const PRO_AI_FEATURES = [
+    { icon: <PenTool className="w-5 h-5" />, title: 'AI Whiteboard', desc: 'Infinite canvas with AI sketch-to-shape and auto-cleanup.' },
+    { icon: <Bot className="w-5 h-5" />, title: 'AI Lesson Planning', desc: '5E-structured lesson plans generated instantly from a topic.' },
+    { icon: <MessageSquare className="w-5 h-5" />, title: 'AI Q&A', desc: 'Students ask questions in real-time; AI surfaces context-aware answers.' },
+    { icon: <Camera className="w-5 h-5" />, title: 'AI Camera', desc: '50MP with auto-framing, engagement tracking, and behavior AI.' },
+    { icon: <Mic className="w-5 h-5" />, title: 'AI Voice Assistant', desc: '8-array mic system with noise cancellation and voice commands.' },
+    { icon: <Lightbulb className="w-5 h-5" />, title: 'AI Summarization', desc: 'Condense PDFs (100pg) and videos into key takeaways in seconds.' },
+    { icon: <Search className="w-5 h-5" />, title: 'AI Search', desc: 'Context-aware smart search across the lesson board and apps.' },
+    { icon: <Maximize2 className="w-5 h-5" />, title: 'AI Screen Adaptation', desc: 'Automatically adjusts layout for most effective viewing.' },
+];
+
+const ProSeries = () => {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(ref.current.querySelectorAll('.pro-text'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 40, duration: 0.9, stagger: 0.08, ease: 'power3.out',
+            });
+            gsap.from(ref.current.querySelectorAll('.pro-img'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
+                opacity: 0, scale: 0.9, duration: 1.2, ease: 'power2.out',
+            });
+            gsap.from(ref.current.querySelectorAll('.pro-stat'), {
+                scrollTrigger: { trigger: ref.current.querySelector('.pro-stats'), start: 'top 85%', toggleActions: 'play none none none' },
+                opacity: 0, y: 20, duration: 0.6, stagger: 0.07, ease: 'power3.out',
+            });
+        }, ref);
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section id="pro" ref={ref} className="py-32 px-6 bg-background border-t border-bento/50 overflow-hidden relative">
+            {/* Atmospheric orange blurs */}
+            <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
+
+            <div className="max-w-screen-2xl mx-auto relative z-10">
+                {/* Header */}
+                <div className="text-center mb-20 space-y-4">
+                    <div className="flex items-center justify-center gap-3 flex-wrap">
+                        <span className="pro-text text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs">PRO SERIES</span>
+                        <div className="flex gap-2">
+                            {['MOHS 9', '50MP', '4K', 'AI'].map(tag => (
+                                <span key={tag} className="px-3 py-1 bg-bento rounded-full text-xs font-bold text-foreground/50 tracking-wider">{tag}</span>
+                            ))}
+                        </div>
+                    </div>
+                    <h2 className="pro-text font-display font-extrabold text-6xl md:text-7xl tracking-tighter text-foreground leading-[1.05]">
+                        The Pro Series.<br /><span className="text-[#FF9F1B]">Nothing</span> Held Back.
+                    </h2>
+                    <p className="pro-text text-xl text-foreground/60 font-medium max-w-2xl mx-auto leading-relaxed">
+                        The EyeRIS A10 Pro is the most advanced interactive display we offer — a fully integrated AI teaching engine built for the classrooms of tomorrow.
                     </p>
                 </div>
 
-                <div className="overflow-x-auto rounded-2xl border border-foreground/10 shadow-sm fade-up">
-                    <table className="w-full text-left border-collapse min-w-[700px]">
+                {/* Triple column: Hardware | Panel | AI */}
+                <div className="grid grid-cols-1 lg:grid-cols-11 gap-12 lg:gap-8 items-center">
+
+                    {/* Left: Hardware stats */}
+                    <div className="pro-stats lg:col-span-3 space-y-6">
+                        <p className="pro-text text-xs font-bold uppercase tracking-widest text-foreground/40 mb-6">Hardware Specs</p>
+                        {PRO_HARDWARE_STATS.map((s, i) => (
+                            <div key={i} className="pro-stat border-b border-bento/80 pb-5 last:border-0">
+                                <div className="flex items-baseline gap-1">
+                                    <span className="font-display font-bold text-3xl text-foreground">{s.value}</span>
+                                    <span className="font-bold text-[#FF9F1B] text-lg">{s.unit}</span>
+                                </div>
+                                <span className="text-foreground/50 text-sm font-medium">{s.label}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Center: Panel image */}
+                    <div className="pro-img relative lg:col-span-5 flex flex-col items-center gap-8">
+                        <div className="absolute inset-0 bg-[#FF9F1B]/6 rounded-3xl blur-3xl pointer-events-none" />
+                        <img
+                            src={PRO_IMAGE}
+                            alt="EyeRIS A10 Pro Interactive Display"
+                            loading="eager"
+                            className="relative w-full max-h-[700px] object-contain drop-shadow-2xl"
+                        />
+                        {/* Size selector below panel */}
+                        <div className="relative z-10 flex flex-col items-center gap-3">
+                            <p className="text-xs font-bold text-foreground/40 uppercase tracking-widest">Available Sizes</p>
+                            <div className="flex gap-3">
+                                {['65"', '75"', '86"'].map((size, i) => (
+                                    <span key={size} className={`px-5 py-2 rounded-full font-bold text-sm ${i === 1 ? 'bg-[#FF9F1B] text-white' : 'bg-bento text-foreground/60'}`}>
+                                        {size}
+                                    </span>
+                                ))}
+                            </div>
+                            <p className="text-foreground/40 text-xs font-medium text-center mt-1">
+                                Mohs 9 Glass · Android 14 · 8GB RAM · 128GB + Unlimited Cloud · 3-Year Onsite Warranty
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Right: AI features */}
+                    <div className="lg:col-span-3 space-y-5">
+                        <p className="pro-text text-xs font-bold uppercase tracking-widest text-foreground/40 mb-6">AI Features</p>
+                        {PRO_AI_FEATURES.map((f, i) => (
+                            <div key={i} className="pro-text flex items-start gap-3">
+                                <span className="text-[#FF9F1B] shrink-0 mt-0.5">{f.icon}</span>
+                                <div>
+                                    <span className="font-bold text-foreground text-sm block">{f.title}</span>
+                                    <span className="text-foreground/50 text-xs font-medium leading-relaxed">{f.desc}</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* CTA */}
+                <div className="text-center mt-20">
+                    <Link
+                        to="/contact"
+                        className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF9F1B]/20"
+                    >
+                        Enquire About Pro Series <ArrowRight size={20} />
+                    </Link>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 6 — COMPARISON TABLE
+// ═══════════════════════════════════════════════════════════════════════
+const COMPARISON_ROWS = [
+    { feature: 'Display', value: '4K UHD, 350 nits', cseries: '4K UHD, 400 nits', pro: '4K UHD, 450 nits, 1.07B Colors' },
+    { feature: 'OS', value: 'Android 14', cseries: 'Android 13', pro: 'Android 14 (EDLA Certified)' },
+    { feature: 'Processor', value: 'Quad Core', cseries: 'Quad Core', pro: 'Octa Core A311D2' },
+    { feature: 'RAM / Storage', value: '4GB / 32GB', cseries: '8GB / 64GB', pro: '8GB / 128GB + Unlimited Cloud' },
+    { feature: 'Touch', value: '20-Point IR', cseries: '40-Point Precision', pro: 'Optical Touch < 2ms, ±0.3mm' },
+    { feature: 'Glass', value: '7H Tempered', cseries: '7H Anti-glare', pro: 'Mohs Level 9 (Zero Gap Bonding)' },
+    { feature: 'Built-in Camera', value: null, cseries: '12MP AI auto-framing', pro: '50MP Built-in AI Camera' },
+    { feature: 'Microphone', value: null, cseries: '8-Array Mic', pro: '8-Array Noise-Cancel Mic' },
+    { feature: 'Google EDLA', value: null, cseries: '✓ Certified', pro: '✓ Certified' },
+    { feature: 'AI Suite', value: 'Basic', cseries: 'Standard', pro: 'Full AI Engine (8 Capabilities)' },
+    { feature: 'Warranty', value: '1-Year Carry-in', cseries: '2-Year Onsite', pro: '3-Year Onsite (Zero Downtime)' },
+];
+
+const ComparisonTable = ({ tableRef }) => {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.from(ref.current.querySelectorAll('.ct-fade'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 40, duration: 0.9, stagger: 0.1, ease: 'power3.out',
+            });
+        }, ref);
+        return () => ctx.revert();
+    }, []);
+
+    return (
+        <section id="compare" ref={(el) => { ref.current = el; if (tableRef) tableRef.current = el; }} className="py-32 px-6 bg-[#F9F9F9] border-t border-bento/50">
+            <div className="max-w-7xl mx-auto">
+                <div className="text-center mb-16 ct-fade">
+                    <span className="text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Side-by-Side</span>
+                    <h2 className="font-display font-bold text-5xl tracking-tight text-foreground mb-4">Compare the Series.</h2>
+                    <p className="text-xl text-foreground/60 font-medium">Find the right panel for your space, side by side.</p>
+                </div>
+
+                <div className="ct-fade overflow-x-auto rounded-3xl border border-foreground/10 shadow-xl">
+                    <table className="w-full text-left border-collapse min-w-[680px]">
                         <thead>
-                            <tr className="bg-background text-foreground">
-                                <th className="p-5 border-b border-foreground/10 font-bold text-foreground/60 uppercase tracking-widest text-xs w-1/4">Feature</th>
-                                <th className="p-5 border-b border-foreground/10 font-bold text-center">
-                                    <span className="text-foreground/50 text-xs uppercase tracking-widest block mb-1">ECO</span>
-                                    <span className="text-foreground text-base">Eco Interactive Display</span>
+                            <tr>
+                                <th className="p-5 bg-background border-b border-foreground/10 font-bold text-foreground/40 uppercase tracking-widest text-xs w-1/4">Specification</th>
+                                <th className="p-5 bg-background border-b border-foreground/10 text-center">
+                                    <span className="text-foreground/40 text-xs uppercase tracking-widest block mb-1">Eco</span>
+                                    <span className="font-bold text-foreground text-sm">Value Series</span>
                                 </th>
-                                <th className="p-5 border-b border-foreground/10 font-bold text-center bg-[#FF9F1B]/8">
-                                    <span className="text-[#FF9F1B] text-xs uppercase tracking-widest block mb-1">⭐ FLAGSHIP</span>
-                                    <span className="text-foreground text-base">Interactive Whiteboard</span>
-                                    <span className="block text-xs text-[#FF9F1B] font-semibold mt-1">with AI Software</span>
+                                <th className="p-5 bg-background border-b border-foreground/10 text-center">
+                                    <span className="text-foreground/40 text-xs uppercase tracking-widest block mb-1">Corporate</span>
+                                    <span className="font-bold text-foreground text-sm">C-Series</span>
                                 </th>
-                                <th className="p-5 border-b border-foreground/10 font-bold text-center">
-                                    <span className="text-foreground/50 text-xs uppercase tracking-widest block mb-1">PRO</span>
-                                    <span className="text-foreground text-base">Corporate Display</span>
+                                {/* Pro column — highlighted */}
+                                <th className="p-5 bg-[#FF9F1B]/8 border-b border-[#FF9F1B]/20 text-center relative">
+                                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF9F1B] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">MOST ADVANCED</span>
+                                    <span className="text-[#FF9F1B] text-xs uppercase tracking-widest block mb-1 mt-2">Flagship</span>
+                                    <span className="font-bold text-foreground text-sm">Pro Series</span>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody className="text-sm font-medium text-foreground/80">
-                            {specs.map((row, i) => (
-                                <tr key={i} className="border-b border-foreground/5 last:border-0 hover:bg-background/50 transition-colors">
-                                    <td className="p-5 font-bold text-foreground/60">{row.category}</td>
-                                    <td className="p-5 text-center">{row.eco}</td>
-                                    <td className="p-5 text-center bg-[#FF9F1B]/5 text-foreground font-semibold">{row.pro}</td>
-                                    <td className="p-5 text-center">{row.corporate}</td>
+                        <tbody className="text-sm font-medium">
+                            {COMPARISON_ROWS.map((row, i) => (
+                                <tr
+                                    key={i}
+                                    className={`border-b border-foreground/5 last:border-0 group hover:bg-[#FF9F1B]/5 transition-colors ${i % 2 === 0 ? 'bg-background' : 'bg-bento/40'}`}
+                                >
+                                    <td className="p-5 font-bold text-foreground/50 text-xs uppercase tracking-wide">{row.feature}</td>
+                                    <td className="p-5 text-center text-foreground/70">
+                                        {row.value ? row.value : <Minus className="w-4 h-4 text-foreground/20 mx-auto" />}
+                                    </td>
+                                    <td className="p-5 text-center text-foreground/70">
+                                        {row.cseries ? row.cseries : <Minus className="w-4 h-4 text-foreground/20 mx-auto" />}
+                                    </td>
+                                    <td className="p-5 text-center bg-[#FF9F1B]/5 font-semibold text-foreground border-x border-[#FF9F1B]/10">
+                                        {row.pro}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+
+                {/* Bottom CTA card */}
+                <div className="ct-fade mt-8 rounded-3xl bg-bento border border-foreground/5 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+                    <div>
+                        <p className="font-bold text-foreground text-lg mb-1">Not sure which series fits you?</p>
+                        <p className="text-foreground/60 font-medium">Let our team help you pick the right panel for your space.</p>
+                    </div>
+                    <Link
+                        to="/contact"
+                        className="shrink-0 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 hover:scale-105 transition-all shadow-lg shadow-[#FF9F1B]/20 whitespace-nowrap"
+                    >
+                        Get Expert Advice <ChevronRight size={16} />
+                    </Link>
+                </div>
             </div>
         </section>
     );
 };
 
-// ─────────────────────────────────────────────────────────────
-// Section 3 — Trusted Brand + Google EDLA
-// ─────────────────────────────────────────────────────────────
-const TrustedGoogleSection = () => {
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 7 — STATS STRIP (DARK)
+// ═══════════════════════════════════════════════════════════════════════
+const STATS = [
+    { target: 500, suffix: '+', label: 'Installations' },
+    { target: 200, suffix: '+', label: 'Schools Served' },
+    { target: 50000, suffix: '+', label: 'Students Impacted' },
+    { target: 3, suffix: ' Year', label: 'Onsite Warranty' },
+];
+
+const StatsStrip = () => {
     const ref = useRef(null);
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.from('.fade-up', {
-                scrollTrigger: { trigger: ref.current, start: 'top 80%' },
-                y: 40, opacity: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out'
+            STATS.forEach((stat, i) => {
+                const el = ref.current?.querySelector(`#stat-val-${i}`);
+                if (!el) return;
+                const counter = { val: 0 };
+                gsap.to(counter, {
+                    val: stat.target,
+                    duration: 2,
+                    ease: 'power2.out',
+                    snap: { val: 1 },
+                    scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                    onUpdate: () => {
+                        el.textContent = counter.val.toLocaleString() + stat.suffix;
+                    },
+                    onStart: () => { el.textContent = '0' + stat.suffix; }
+                });
+            });
+            gsap.from(ref.current.querySelectorAll('.stat-label'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: 'power3.out',
             });
         }, ref);
         return () => ctx.revert();
     }, []);
 
-    const trustStats = [
-        { label: 'Make in India', sub: 'Proudly assembled and optimized domestically.' },
-        { label: 'A+ Grade Panel', sub: 'Premium zero-defect commercial displays.' },
-        { label: 'Pan India Service', sub: 'Comprehensive deployment and technical support.' },
-        { label: '3-Year Onsite Warranty', sub: 'Full hardware coverage — zero downtime guarantee.' },
-    ];
-
     return (
-        <section ref={ref} className="py-24 bg-background border-t border-foreground/5">
+        <section ref={ref} className="py-24 bg-foreground border-t border-[#FF9F1B]/10">
             <div className="max-w-7xl mx-auto px-6">
-                {/* Trusted Brand */}
-                <div className="text-center mb-16 fade-up">
-                    <span className="text-[#FF9F1B] font-bold tracking-widest uppercase text-xs mb-4 block">Why InfinityX</span>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-foreground">Trusted Brand,<br />Established Results.</h2>
-                    <p className="text-xl text-foreground/60 font-medium max-w-2xl mx-auto">
-                        Built for durability, backed by experience. Every InfinityX panel is engineered for long-term institutional use.
-                    </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-24 fade-up">
-                    {trustStats.map((stat, i) => (
-                        <div key={i} className="bg-bento border border-foreground/5 p-8 rounded-2xl text-center hover:border-[#FF9F1B]/30 transition-colors">
-                            <Star className="w-8 h-8 text-[#FF9F1B] mx-auto mb-4" />
-                            <h3 className="text-xl font-bold text-foreground mb-2">{stat.label}</h3>
-                            <p className="text-foreground/60 text-sm font-medium">{stat.sub}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
+                    {STATS.map((stat, i) => (
+                        <div key={i} className={`flex flex-col items-center text-center py-8 px-4 ${i < STATS.length - 1 ? 'border-r border-white/10' : ''}`}>
+                            <span
+                                id={`stat-val-${i}`}
+                                className="font-display font-extrabold text-5xl md:text-6xl text-[#FF9F1B] mb-3"
+                            >
+                                0{stat.suffix}
+                            </span>
+                            <span className="stat-label text-white/50 text-xs uppercase tracking-widest font-bold">{stat.label}</span>
                         </div>
                     ))}
                 </div>
-
-                {/* Google EDLA */}
-                <div className="bg-bento rounded-3xl border border-foreground/5 p-10 md:p-16 fade-up">
-                    <div className="text-center mb-12">
-                        <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">Harness the Power of Google.</h3>
-                        <p className="text-foreground/60 font-medium max-w-2xl mx-auto">
-                            Native Google EDLA certification gives you full access to the Google Play Store, Google Workspace, and seamless security updates straight from Google — out of the box.
-                        </p>
-                    </div>
-
-                    <div className="flex flex-wrap justify-center gap-10 mb-12">
-                        {[
-                            { icon: <Play className="w-8 h-8 text-[#FF9F1B]" />, label: 'Google Play Store' },
-                            { icon: <Users className="w-8 h-8 text-blue-500" />, label: 'Google Workspace' },
-                            { icon: <BookOpen className="w-8 h-8 text-green-500" />, label: 'Google Chrome' },
-                            { icon: <Shield className="w-8 h-8 text-purple-500" />, label: 'Google Security Updates' },
-                        ].map((item, i) => (
-                            <div key={i} className="flex flex-col items-center">
-                                <div className="w-16 h-16 bg-background rounded-full shadow-md flex items-center justify-center mb-4">
-                                    {item.icon}
-                                </div>
-                                <span className="font-bold text-sm text-foreground">{item.label}</span>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="bg-gradient-to-r from-yellow-500/10 to-[#FF9F1B]/10 p-10 rounded-2xl border border-yellow-500/20 relative overflow-hidden">
-                        <ShieldCheck className="w-40 h-40 text-yellow-500/10 absolute -right-6 -bottom-6 pointer-events-none" />
-                        <div className="relative z-10 text-center">
-                            <h4 className="text-2xl md:text-3xl font-display font-bold mb-3 flex items-center justify-center gap-3">
-                                <Shield className="text-yellow-600 w-7 h-7" /> 3 Years Onsite Warranty
-                            </h4>
-                            <p className="font-medium text-foreground/70 max-w-xl mx-auto">
-                                We stand by our hardware. Every InfinityX Board comes with a comprehensive 3-year onsite warranty ensuring zero downtime for your organization.
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     );
 };
 
-// ─────────────────────────────────────────────────────────────
-// Section 4 — AI Software
-// ─────────────────────────────────────────────────────────────
-const AISection = () => {
+
+// ═══════════════════════════════════════════════════════════════════════
+// SECTION 8 — ENQUIRY FORM
+// ═══════════════════════════════════════════════════════════════════════
+const EnquiryForm = () => {
+    const [selectedSeries, setSelectedSeries] = useState('Pro Series');
+    const [selectedSize, setSelectedSize] = useState('75"');
+    const [status, setStatus] = useState('');
     const ref = useRef(null);
+
     useEffect(() => {
         const ctx = gsap.context(() => {
-            gsap.from('.fade-up', {
-                scrollTrigger: { trigger: ref.current, start: 'top 80%' },
-                y: 40, opacity: 0, duration: 0.9, stagger: 0.1, ease: 'power3.out'
+            gsap.from(ref.current.querySelectorAll('.ef-fade'), {
+                scrollTrigger: { trigger: ref.current, start: 'top 80%', toggleActions: 'play none none none' },
+                opacity: 0, y: 40, duration: 0.9, stagger: 0.1, ease: 'power3.out',
             });
         }, ref);
         return () => ctx.revert();
     }, []);
 
-    const coreAI = [
-        'AI Whiteboard', 'AI Annotation', 'AI Q&A Assistant',
-        'AI Voice Assistant', 'AI Live Subtitles', 'AI Auto-framing Camera',
-        'AI Screen Adaptation', 'AI Content Search',
-    ];
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setStatus('Sending...');
+        setTimeout(() => {
+            setStatus('Request sent! We\'ll contact you shortly.');
+            setTimeout(() => setStatus(''), 4000);
+        }, 1500);
+    };
 
-    const eduContent = [
-        { label: 'Physics Simulations' }, { label: 'Chemistry Labs' },
-        { label: 'Biology 3D Models' }, { label: 'Math Tools' },
-        { label: 'Social Studies Maps' }, { label: 'Language Modules' },
-    ];
-
-    const teachingTools = [
-        'Multi-user writing with instant split-screen lessons.',
-        'Cloud file access & secure local screen recording.',
-        'Zero-lag wireless casting from any mobile device.',
-        'Remote teaching mode built-in for hybrid environments.',
-        'Real-time quiz generation directly on the whiteboard.',
-    ];
+    const seriesOptions = ['Value Series', 'C-Series', 'Pro Series'];
+    const sizeOptions = ['65"', '75"', '86"'];
 
     return (
-        <section ref={ref} className="py-24 bg-foreground text-background relative overflow-hidden border-t border-white/5">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[#FF9F1B]/8 rounded-full blur-[120px] pointer-events-none" />
+        <section id="enquiry" ref={ref} className="py-32 px-6 bg-background border-t border-bento/50">
+            <div className="max-w-6xl mx-auto">
+                <div className="ef-fade rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="text-center max-w-3xl mx-auto mb-20 fade-up">
-                    <div className="inline-flex items-center justify-center p-4 bg-[#FF9F1B]/20 rounded-2xl mb-6">
-                        <Cpu className="w-8 h-8 text-[#FF9F1B]" />
-                    </div>
-                    <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight mb-6 text-white">
-                        AI-Powered Software.
-                    </h2>
-                    <p className="text-xl text-white/60 font-medium">
-                        A dedicated intelligence layer transforming displays into active, collaborative participants — built directly into the OS.
-                    </p>
-                </div>
+                    {/* Left: Dark panel */}
+                    <div className="lg:w-2/5 bg-foreground p-10 md:p-14 flex flex-col justify-between relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#FF9F1B]/10 rounded-full blur-3xl pointer-events-none" />
+                        <div className="relative z-10">
+                            <span className="text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs block mb-6">Get a Demo</span>
+                            <h3 className="font-display font-bold text-3xl md:text-4xl text-white leading-tight mb-4">
+                                Get a Demo at<br />Your School.
+                            </h3>
+                            <p className="text-white/60 font-medium mb-10 leading-relaxed">
+                                Our enterprise team will arrange a live demonstration at your institution, tailored to your specific needs.
+                            </p>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 fade-up">
-                    {/* Core AI Panel */}
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl">
-                        <h3 className="text-2xl font-bold mb-8 text-[#FF9F1B] flex items-center gap-3">
-                            <PenTool size={22} /> Core AI Features
-                        </h3>
-                        <div className="space-y-3">
-                            {coreAI.map((item, i) => (
-                                <div key={i} className="flex justify-between items-center bg-white/5 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors">
-                                    <span className="font-medium text-sm text-white/90">{item}</span>
-                                    <div className="w-2 h-2 rounded-full bg-[#FF9F1B]" />
+                            <div className="space-y-6">
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                                        <Phone className="w-4 h-4 text-[#FF9F1B]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-sm">+91 9292252880</p>
+                                        <p className="text-white/40 text-xs font-medium">Mon–Sat, 9am–6pm IST</p>
+                                    </div>
                                 </div>
-                            ))}
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                                        <Mail className="w-4 h-4 text-[#FF9F1B]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-sm">matrixedgevij@gmail.com</p>
+                                        <p className="text-white/40 text-xs font-medium">Response within 4 hours</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                                        <MapPin className="w-4 h-4 text-[#FF9F1B]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-sm">Vijayawada, Andhra Pradesh</p>
+                                        <p className="text-white/40 text-xs font-medium">APIIC Industrial Area, C4/110</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Series tier indicators */}
+                        <div className="relative z-10 mt-12 flex items-center gap-4">
+                            <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-[#FF9F1B]" />
+                                <span className="text-white/40 text-xs font-bold">Value</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
+                                <span className="text-white/40 text-xs font-bold">C-Series</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="w-2.5 h-2.5 rounded-full bg-violet-400" />
+                                <span className="text-white/40 text-xs font-bold">Pro</span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Education Content Panel */}
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl">
-                        <h3 className="text-2xl font-bold mb-4 text-[#FF9F1B] flex items-center gap-3">
-                            <BookOpen size={22} /> Education Software
-                        </h3>
-                        <p className="text-white/50 text-sm font-medium mb-8 leading-relaxed">
-                            Built-in K-12 digital content featuring 3,000+ interactive 3D learning resources running natively on the panel.
-                        </p>
-                        <div className="grid grid-cols-2 gap-3">
-                            {eduContent.map((item, i) => (
-                                <div key={i} className="bg-white/5 px-4 py-4 rounded-xl border border-white/5 hover:bg-white/10 transition-colors text-center text-sm font-semibold text-white/80">
-                                    {item.label}
+                    {/* Right: Form */}
+                    <div className="lg:w-3/5 bg-[#F9F9F9] p-10 md:p-14">
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">First Name</label>
+                                    <input type="text" required placeholder="Jane"
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
-                            ))}
-                        </div>
-                    </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Last Name</label>
+                                    <input type="text" required placeholder="Doe"
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
+                                </div>
+                            </div>
 
-                    {/* Teaching Tools Panel */}
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl">
-                        <h3 className="text-2xl font-bold mb-8 text-white flex items-center gap-3">
-                            <Wifi size={22} /> Teaching Tools
-                        </h3>
-                        <ul className="space-y-5 text-white/80 font-medium">
-                            {teachingTools.map((tool, i) => (
-                                <li key={i} className="flex gap-4 items-start">
-                                    <span className="text-[#FF9F1B] font-bold text-sm min-w-[28px]">0{i + 1}</span>
-                                    <span className="text-sm leading-relaxed">{tool}</span>
-                                </li>
-                            ))}
-                        </ul>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Email Address</label>
+                                    <input type="email" required placeholder="jane@school.edu"
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Phone</label>
+                                    <input type="tel" required placeholder="+91 90000 00000"
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Organization / School Name</label>
+                                <input type="text" placeholder="Greenfield High School"
+                                    className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
+                            </div>
+
+                            {/* Series selector */}
+                            <div>
+                                <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Interested Series</label>
+                                <div className="flex flex-wrap gap-3">
+                                    {seriesOptions.map(s => (
+                                        <button
+                                            key={s}
+                                            type="button"
+                                            onClick={() => setSelectedSeries(s)}
+                                            className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${selectedSeries === s
+                                                    ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                                    : 'bg-bento text-foreground/60 hover:bg-bento/60'
+                                                }`}
+                                        >
+                                            {s}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Size selector */}
+                            <div>
+                                <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Panel Size</label>
+                                <div className="flex gap-3">
+                                    {sizeOptions.map(s => (
+                                        <button
+                                            key={s}
+                                            type="button"
+                                            onClick={() => setSelectedSize(s)}
+                                            className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${selectedSize === s
+                                                    ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                                    : 'bg-bento text-foreground/60 hover:bg-bento/60'
+                                                }`}
+                                        >
+                                            {s}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Message (Optional)</label>
+                                <textarea
+                                    rows={3}
+                                    placeholder="Any specific requirements or questions?"
+                                    className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm resize-none"
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={status !== ''}
+                                className={`w-full font-bold px-8 py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-2 text-sm ${status === ''
+                                        ? 'bg-[#FF9F1B] text-white hover:bg-[#FF9F1B]/90 hover:scale-[1.02] shadow-[#FF9F1B]/20'
+                                        : status.includes('sent')
+                                            ? 'bg-green-500 text-white cursor-default'
+                                            : 'bg-[#FF9F1B]/50 text-white cursor-wait'
+                                    }`}
+                            >
+                                {status || 'Request a Demo'}
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -396,90 +879,80 @@ const AISection = () => {
 };
 
 
-
-// ─────────────────────────────────────────────────────────────
-// Main Page
-// ─────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════
+// ROOT — ProductsPage
+// ═══════════════════════════════════════════════════════════════════════
 const ProductsPage = () => {
+    const [activeTab, setActiveTab] = useState('value');
+    const tableRef = useRef(null);
+
+    // Section refs for scroll spy + tab click
+    const sectionRefs = {
+        value: useRef(null),
+        cseries: useRef(null),
+        pro: useRef(null),
+    };
+
+    // Scroll spy via IntersectionObserver
+    useEffect(() => {
+        const observers = [];
+        Object.entries(sectionRefs).forEach(([id, ref]) => {
+            if (!ref.current) return;
+            const obs = new IntersectionObserver(
+                ([entry]) => { if (entry.isIntersecting) setActiveTab(id); },
+                { rootMargin: '-40% 0px -40% 0px', threshold: 0 }
+            );
+            obs.observe(ref.current);
+            observers.push(obs);
+        });
+        return () => observers.forEach(o => o.disconnect());
+    }, []);
+
+    const scrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveTab(id === 'compare' ? activeTab : id);
+    };
+
+    const scrollToCompare = () => {
+        if (tableRef.current) tableRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
     return (
-        <div className="pt-0 pb-0 bg-background min-h-screen text-foreground selection:bg-[#FF9F1B]/20">
+        <div className="bg-background min-h-screen text-foreground selection:bg-[#FF9F1B]/20 selection:text-[#FF9F1B]">
+            {/* S1: Hero */}
+            <Hero onExplore={() => scrollTo('value')} onCompare={scrollToCompare} />
 
-            {/* ── Section 1: Scroll-1 — Eco Interactive Display ── */}
-            <DisplaySection
-                image={`${import.meta.env.BASE_URL}images/ID.jpg`}
-                imageAlt="Eco Interactive Display for Education"
-                badge="Interactive Displays · Education"
-                title="Eco Interactive Display."
-                description="Designed for modern classrooms, the Eco Interactive Display delivers 4K UHD touch interaction, premium audio, and seamless device connectivity — making every lesson engaging and effortless."
-                features={[
-                    '4K UHD Anti-Glare Display',
-                    '20-Point Multi-Touch with Palm Rejection',
-                    'Dual 20W Built-in Speakers',
-                    'Android 11 with Education Suite',
-                ]}
-                imageOnRight={true}
+            {/* S2: Sticky series nav */}
+            <SeriesNav
+                activeTab={activeTab}
+                onTabClick={(id) => scrollTo(id)}
+                onCompare={scrollToCompare}
             />
 
-            {/* ── Section 1: Scroll-2 — AI Interactive Whiteboard ── */}
-            <DisplaySection
-                image={`${import.meta.env.BASE_URL}images/ID2.png`}
-                imageAlt="Interactive Whiteboard with AI Software for Education"
-                badge="Interactive Displays · Flagship AI"
-                title="Interactive Whiteboard. AI Inside."
-                description="The next evolution of classroom technology. Our AI-powered Interactive Whiteboard includes Google EDLA certification plus an intelligent software layer that generates quizzes, translates live speech, and auto-frames teachers — making it fundamentally different from any other panel."
-                features={[
-                    'Full Google EDLA Certification',
-                    'AI Q&A, Annotation & Live Subtitles',
-                    '12MP AI Auto-framing Built-in Camera',
-                    '8-Array Microphone System',
-                    '3,000+ Interactive K-12 Learning Resources',
-                ]}
-                imageOnRight={false}
-            />
+            {/* S3: Value Series */}
+            <div ref={sectionRefs.value}>
+                <ValueSeries />
+            </div>
 
-            {/* ── Section 1: Scroll-3 — Corporate Interactive Display ── */}
-            <DisplaySection
-                image={`${import.meta.env.BASE_URL}images/ID3.jpg`}
-                imageAlt="Corporate Interactive Display"
-                badge="Interactive Displays · Enterprise"
-                title="Corporate Interactive Display."
-                description="Purpose-built for boardrooms, conference halls, and enterprise collaboration spaces. Featuring 40-point precision touch, Google EDLA, and a full enterprise software suite for seamless hybrid meetings."
-                features={[
-                    '40-Point Precision Touch',
-                    'Google EDLA & Play Store Access',
-                    'AI Camera + 8-Array Mic for VC',
-                    'Enterprise Collaboration Suite',
-                    'Zero-Lag Wireless Screen Casting',
-                ]}
-                imageOnRight={true}
-            />
+            {/* S4: C-Series */}
+            <div ref={sectionRefs.cseries}>
+                <CSeries />
+            </div>
 
-            {/* ── Section 2: Comparison Table ── */}
-            <ComparisonSection />
+            {/* S5: Pro Series */}
+            <div ref={sectionRefs.pro}>
+                <ProSeries />
+            </div>
 
-            {/* ── Section 3: Trusted + Google EDLA ── */}
-            <TrustedGoogleSection />
+            {/* S6: Comparison Table */}
+            <ComparisonTable tableRef={tableRef} />
 
-            {/* ── Section 4: AI Software ── */}
-            <AISection />
+            {/* S7: Stats Strip */}
+            <StatsStrip />
 
-            {/* ── Section 5: Digital Signage ── */}
-            <DisplaySection
-                image={`${import.meta.env.BASE_URL}images/DigitalSignage.jpeg`}
-                imageAlt="Digital Signage"
-                badge="Commercial Displays · Signage"
-                title="Digital Signage Solutions."
-                description="Captivating commercial displays engineered for modern public spaces. From lobbies to campuses, our signage solutions create unforgettable first impressions with expansive synced configurations."
-                features={[
-                    'Digital Standees & Interactive Kiosks',
-                    'UHD Video Wall Systems',
-                    'Remote Content Management & Scheduling',
-                    'Cloud-Based Centralized Broadcasting',
-                    'Touch & Non-Touch Variants',
-                ]}
-                imageOnRight={false}
-            />
-
+            {/* S8: Enquiry Form */}
+            <EnquiryForm />
         </div>
     );
 };
