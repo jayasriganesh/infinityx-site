@@ -55,7 +55,7 @@ const Hero = ({ onExplore, onCompare }) => {
     }, []);
 
     return (
-        <section ref={ref} className="min-h-screen bg-background flex items-center px-6 py-32 overflow-hidden">
+        <section ref={ref} className="min-h-[80vh] md:min-h-screen bg-background flex items-center px-6 py-24 md:py-32 overflow-hidden">
             <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-11 gap-16 items-center">
 
                 {/* Left: Text (55%) */}
@@ -198,7 +198,7 @@ const ValueSeries = () => {
     }, []);
 
     return (
-        <section id="value" ref={ref} className="min-h-screen bg-background border-t border-bento/50 py-32 px-6 overflow-hidden">
+        <section id="value" ref={ref} className="bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
             <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
 
                 {/* Left: Text block */}
@@ -222,8 +222,8 @@ const ValueSeries = () => {
                                     key={size}
                                     onClick={() => setActiveSize(size)}
                                     className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${activeSize === size
-                                            ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
-                                            : 'bg-bento text-foreground/60 hover:bg-bento/80'
+                                        ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                        : 'bg-bento text-foreground/60 hover:bg-bento/80'
                                         }`}
                                 >
                                     {size}
@@ -302,7 +302,7 @@ const CSeries = () => {
     }, []);
 
     return (
-        <section id="cseries" ref={ref} className="min-h-screen bg-foreground border-t border-[#FF9F1B]/20 py-32 px-6 overflow-hidden">
+        <section id="cseries" ref={ref} className="bg-foreground border-t border-[#FF9F1B]/20 py-16 md:py-32 px-6 overflow-hidden">
             <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
 
                 {/* Left: Panel image */}
@@ -350,8 +350,8 @@ const CSeries = () => {
                                     key={size}
                                     onClick={() => setActiveSize(size)}
                                     className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${activeSize === size
-                                            ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
-                                            : 'bg-white/10 text-white hover:bg-white/15'
+                                        ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                        : 'bg-white/10 text-white hover:bg-white/15'
                                         }`}
                                 >
                                     {size}
@@ -420,7 +420,7 @@ const ProSeries = () => {
     }, []);
 
     return (
-        <section id="pro" ref={ref} className="py-32 px-6 bg-background border-t border-bento/50 overflow-hidden relative">
+        <section id="pro" ref={ref} className="py-16 md:py-32 px-6 bg-background border-t border-bento/50 overflow-hidden relative">
             {/* Atmospheric orange blurs */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
@@ -547,7 +547,7 @@ const ComparisonTable = ({ tableRef }) => {
     }, []);
 
     return (
-        <section id="compare" ref={(el) => { ref.current = el; if (tableRef) tableRef.current = el; }} className="py-32 px-6 bg-[#F9F9F9] border-t border-bento/50">
+        <section id="compare" ref={(el) => { ref.current = el; if (tableRef) tableRef.current = el; }} className="py-16 md:py-32 px-6 bg-[#F9F9F9] border-t border-bento/50">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16 ct-fade">
                     <span className="text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Side-by-Side</span>
@@ -657,7 +657,7 @@ const StatsStrip = () => {
     }, []);
 
     return (
-        <section ref={ref} className="py-24 bg-foreground border-t border-[#FF9F1B]/10">
+        <section ref={ref} className="py-12 md:py-24 bg-foreground border-t border-[#FF9F1B]/10">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
                     {STATS.map((stat, i) => (
@@ -710,7 +710,7 @@ const EnquiryForm = () => {
     const sizeOptions = ['65"', '75"', '86"'];
 
     return (
-        <section id="enquiry" ref={ref} className="py-32 px-6 bg-background border-t border-bento/50">
+        <section id="enquiry" ref={ref} className="py-16 md:py-32 px-6 bg-background border-t border-bento/50">
             <div className="max-w-6xl mx-auto">
                 <div className="ef-fade rounded-3xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
 
@@ -819,8 +819,8 @@ const EnquiryForm = () => {
                                             type="button"
                                             onClick={() => setSelectedSeries(s)}
                                             className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${selectedSeries === s
-                                                    ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
-                                                    : 'bg-bento text-foreground/60 hover:bg-bento/60'
+                                                ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                                : 'bg-bento text-foreground/60 hover:bg-bento/60'
                                                 }`}
                                         >
                                             {s}
@@ -839,8 +839,8 @@ const EnquiryForm = () => {
                                             type="button"
                                             onClick={() => setSelectedSize(s)}
                                             className={`px-5 py-2 rounded-full font-bold text-sm transition-all ${selectedSize === s
-                                                    ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
-                                                    : 'bg-bento text-foreground/60 hover:bg-bento/60'
+                                                ? 'bg-[#FF9F1B] text-white shadow-md shadow-[#FF9F1B]/20'
+                                                : 'bg-bento text-foreground/60 hover:bg-bento/60'
                                                 }`}
                                         >
                                             {s}
@@ -862,10 +862,10 @@ const EnquiryForm = () => {
                                 type="submit"
                                 disabled={status !== ''}
                                 className={`w-full font-bold px-8 py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-2 text-sm ${status === ''
-                                        ? 'bg-[#FF9F1B] text-white hover:bg-[#FF9F1B]/90 hover:scale-[1.02] shadow-[#FF9F1B]/20'
-                                        : status.includes('sent')
-                                            ? 'bg-green-500 text-white cursor-default'
-                                            : 'bg-[#FF9F1B]/50 text-white cursor-wait'
+                                    ? 'bg-[#FF9F1B] text-white hover:bg-[#FF9F1B]/90 hover:scale-[1.02] shadow-[#FF9F1B]/20'
+                                    : status.includes('sent')
+                                        ? 'bg-green-500 text-white cursor-default'
+                                        : 'bg-[#FF9F1B]/50 text-white cursor-wait'
                                     }`}
                             >
                                 {status || 'Request a Demo'}

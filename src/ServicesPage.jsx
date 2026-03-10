@@ -46,7 +46,7 @@ const ServiceSection = ({ image, imageAlt, badge, title, description, features, 
     }, [imageOnRight]);
 
     return (
-        <section ref={ref} className="min-h-screen flex items-center bg-background border-t border-bento/50 py-32 px-6 overflow-hidden">
+        <section ref={ref} className="min-h-[70vh] md:min-h-screen flex items-center bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
             <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
                 {/* Text block */}
                 <div className="lg:[direction:ltr] lg:col-span-2 space-y-8">

@@ -44,7 +44,7 @@ const ContactPage = () => {
     const options = ['Interactive Displays', 'Campus Infrastructure', 'Digital Signage', 'Other Services'];
 
     return (
-        <div className="pt-32 pb-24 px-6 min-h-screen bg-background">
+        <div className="pt-24 pb-16 md:pt-32 md:pb-24 px-6 min-h-screen bg-background">
             <div className="max-w-7xl mx-auto">
                 {/* Header Sequence */}
                 <div className="text-center mb-16">

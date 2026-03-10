@@ -89,7 +89,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="h-screen flex flex-col items-center justify-center text-center overflow-hidden relative z-10 px-6">
+    <section ref={containerRef} className="min-h-[80vh] md:h-screen flex flex-col items-center justify-center text-center overflow-hidden relative z-10 px-6 py-20 md:py-0">
       <div className="max-w-5xl mx-auto z-10">
         <h1 className="text-dynamic-hero text-foreground mb-6 flex flex-wrap justify-center gap-x-4">
           <span className="hero-word inline-block">Infrastructure.</span>
@@ -151,7 +151,7 @@ const ScrollSection = ({ image, imageAlt, badge, title, description, ctaLabel, c
   }, [imageOnRight]);
 
   return (
-    <section ref={ref} className="min-h-screen flex items-center bg-background border-t border-bento/50 py-32 px-6 overflow-hidden">
+    <section ref={ref} className="min-h-[70vh] md:min-h-screen flex items-center bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
       <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
         {/* Text block — always LTR internally */}
         <div className="lg:[direction:ltr] lg:col-span-2 space-y-6">
@@ -216,7 +216,7 @@ const ClientMarquee = () => {
   ];
 
   return (
-    <section id="clients" className="py-20 border-y border-bento/50 bg-background overflow-hidden flex flex-col items-center">
+    <section id="clients" className="py-12 md:py-20 border-y border-bento/50 bg-background overflow-hidden flex flex-col items-center">
       <p className="text-sm font-semibold text-foreground/50 uppercase tracking-widest mb-10 text-center px-4">Trusted Integrations & Ecosystem Partners</p>
       <div ref={marqueeRef} className="w-full relative flex whitespace-nowrap overflow-hidden group">
         <div className="marquee-track flex gap-12 md:gap-16 px-8 items-center">
@@ -235,7 +235,7 @@ const ClientMarquee = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#1D1D1F] text-white pt-24 pb-12 px-6">
+    <footer className="bg-[#1D1D1F] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-2">

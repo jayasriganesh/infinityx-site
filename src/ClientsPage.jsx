@@ -92,7 +92,7 @@ const ClientsPage = () => {
     return (
         <div ref={containerRef} className="bg-background min-h-screen text-foreground selection:bg-[#FF9F1B]/20 selection:text-[#FF9F1B]">
             {/* Hero Section */}
-            <section className="pt-32 pb-20 px-6">
+            <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-6">
                 <div className="max-w-7xl mx-auto text-center hero-content">
                     <h1 className="text-5xl md:text-7xl font-display font-bold mb-8 tracking-tight leading-[1.1]">
                         Transforming <span className="text-[#FF9F1B]">Education</span> Together <br />
@@ -105,7 +105,7 @@ const ClientsPage = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-20 px-6 bg-bento/30 border-y border-foreground/5">
+            <section className="py-12 md:py-20 px-6 bg-bento/30 border-y border-foreground/5">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 stats-grid">
                         {stats.map((stat, i) => (
@@ -120,7 +120,7 @@ const ClientsPage = () => {
             </section>
 
             {/* Clients Section */}
-            <section className="py-32 px-6 relative overflow-hidden">
+            <section className="py-16 md:py-32 px-6 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto relative z-10 px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">Trusted by Schools and Educators Across India</h2>

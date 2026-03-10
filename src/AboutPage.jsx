@@ -44,7 +44,7 @@ const AboutPage = () => {
         <div className="bg-background min-h-screen text-foreground font-sans selection:bg-[#FF9F1B]/20 pb-24">
 
             {/* 1. Header & Logo */}
-            <header className="pt-32 pb-16 px-6 text-left max-w-7xl mx-auto flex flex-col items-start">
+            <header className="pt-24 md:pt-32 pb-12 md:pb-16 px-6 text-left max-w-7xl mx-auto flex flex-col items-start">
                 <img
                     src={`${import.meta.env.BASE_URL}images/INFINITYX.png`}
                     alt="Matrix Edge Computers / InfinityX Logo"
@@ -59,7 +59,7 @@ const AboutPage = () => {
             </header>
 
             {/* 2. Main Narrative based on company.md */}
-            <main className="max-w-7xl mx-auto px-6 space-y-20">
+            <main className="max-w-7xl mx-auto px-6 space-y-12 md:space-y-20">
 
                 <section className="space-y-6 text-lg text-foreground/80 font-medium leading-relaxed section-anim text-justify">
                     <p>
