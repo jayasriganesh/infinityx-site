@@ -520,17 +520,15 @@ const ProSeries = () => {
 // SECTION 6 — COMPARISON TABLE
 // ═══════════════════════════════════════════════════════════════════════
 const COMPARISON_ROWS = [
-    { feature: 'Display', value: '4K UHD, 350 nits', cseries: '4K UHD, 400 nits', pro: '4K UHD, 450 nits, 1.07B Colors' },
-    { feature: 'OS', value: 'Android 14', cseries: 'Android 13', pro: 'Android 14 (EDLA Certified)' },
-    { feature: 'Processor', value: 'Quad Core', cseries: 'Quad Core', pro: 'Octa Core A311D2' },
-    { feature: 'RAM / Storage', value: '4GB / 32GB', cseries: '8GB / 64GB', pro: '8GB / 128GB + Unlimited Cloud' },
-    { feature: 'Touch', value: '20-Point IR', cseries: '40-Point Precision', pro: 'Optical Touch < 2ms, ±0.3mm' },
-    { feature: 'Glass', value: '7H Tempered', cseries: '7H Anti-glare', pro: 'Mohs Level 9 (Zero Gap Bonding)' },
-    { feature: 'Built-in Camera', value: null, cseries: '12MP AI auto-framing', pro: '50MP Built-in AI Camera' },
-    { feature: 'Microphone', value: null, cseries: '8-Array Mic', pro: '8-Array Noise-Cancel Mic' },
-    { feature: 'Google EDLA', value: null, cseries: '✓ Certified', pro: '✓ Certified' },
-    { feature: 'AI Suite', value: 'Basic', cseries: 'Standard', pro: 'Full AI Engine (8 Capabilities)' },
-    { feature: 'Warranty', value: '1-Year Carry-in', cseries: '2-Year Onsite', pro: '3-Year Onsite (Zero Downtime)' },
+    { feature: 'Operating System', value: 'Android 14', cseries: 'Android 14', pro: 'Android 14' },
+    { feature: 'EDLA Certification', value: 'Supported', cseries: 'Supported', pro: 'Supported' },
+    { feature: 'RAM', value: '8GB', cseries: '8GB', pro: '8GB' },
+    { feature: 'Storage', value: '128GB', cseries: '128GB', pro: '128GB' },
+    { feature: 'AI Engine', value: 'Integrated', cseries: 'Integrated', pro: 'Integrated' },
+    { feature: 'Camera / Mic', value: 'Optional Add-on', cseries: 'Included (12MP/8-Mic)', pro: 'Included (50MP/8-Mic)' },
+    { feature: 'Cloud Storage', value: 'Available', cseries: 'Available', pro: 'Available' },
+    { feature: 'Multi-Touch', value: '40-Point', cseries: '40-Point', pro: '40-Point' },
+    { feature: 'Display Bonding', value: 'Standard', cseries: 'Standard', pro: 'Zero-Gap Optical' },
 ];
 
 const ComparisonTable = ({ tableRef }) => {
@@ -561,8 +559,8 @@ const ComparisonTable = ({ tableRef }) => {
                             <tr>
                                 <th className="p-5 bg-background border-b border-foreground/10 font-bold text-foreground/40 uppercase tracking-widest text-xs w-1/4">Specification</th>
                                 <th className="p-5 bg-background border-b border-foreground/10 text-center">
-                                    <span className="text-foreground/40 text-xs uppercase tracking-widest block mb-1">Eco</span>
-                                    <span className="font-bold text-foreground text-sm">Value Series</span>
+                                    <span className="text-foreground/40 text-xs uppercase tracking-widest block mb-1">Standard</span>
+                                    <span className="font-bold text-foreground text-sm">Eco Series</span>
                                 </th>
                                 <th className="p-5 bg-background border-b border-foreground/10 text-center">
                                     <span className="text-foreground/40 text-xs uppercase tracking-widest block mb-1">Corporate</span>
@@ -570,7 +568,7 @@ const ComparisonTable = ({ tableRef }) => {
                                 </th>
                                 {/* Pro column — highlighted */}
                                 <th className="p-5 bg-[#FF9F1B]/8 border-b border-[#FF9F1B]/20 text-center relative">
-                                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF9F1B] text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">MOST ADVANCED</span>
+
                                     <span className="text-[#FF9F1B] text-xs uppercase tracking-widest block mb-1 mt-2">Flagship</span>
                                     <span className="font-bold text-foreground text-sm">Pro Series</span>
                                 </th>
