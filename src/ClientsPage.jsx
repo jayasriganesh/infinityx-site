@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react';
+import { useSEO } from './hooks/useSEO';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Users, Building2, Landmark, Clock } from 'lucide-react';
@@ -6,6 +7,11 @@ import { Users, Building2, Landmark, Clock } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const ClientsPage = () => {
+    useSEO({
+        title: "Our Trusted Clients & Partners | InfinityX",
+        description: "Join over 2000 happy customers, including top schools and government projects across India, who trust InfinityX for their interactive display and IT infrastructure needs.",
+        keywords: "InfinityX Clients, Education Partners, Government Projects, Matrix Edge Customers"
+    });
     const containerRef = useRef(null);
 
     useLayoutEffect(() => {

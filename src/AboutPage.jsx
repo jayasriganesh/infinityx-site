@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useSEO } from './hooks/useSEO';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -6,6 +7,11 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 const AboutPage = () => {
+    useSEO({
+        title: "About InfinityX | Matrix Edge Computers",
+        description: "Learn about Matrix Edge Computers (MEC) and InfinityX. Over a decade of experience delivering top-tier IT infrastructure and system integration services.",
+        keywords: "About InfinityX, Matrix Edge Computers, IT Infrastructure Provider, System Integrator India"
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);

@@ -8,6 +8,7 @@ import AboutPage from './AboutPage';
 import ServicesPage from './ServicesPage';
 import ClientsPage from './ClientsPage';
 import ContactPage from './ContactPage';
+import { useSEO } from './hooks/useSEO';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -285,7 +286,14 @@ const Footer = () => {
   )
 }
 
-const LandingPage = () => (
+const LandingPage = () => {
+  useSEO({
+    title: "InfinityX | Premium System Integration",
+    description: "Premier system integration partner delivering high-performance IT infrastructure and intelligent display solutions across education and enterprise environments.",
+    keywords: "Interactive Displays, Smart Boards, IFPD, Education Technology, System Integration, C-Series, Eco Series, Pro Series, Matrix Edge"
+  });
+
+  return (
   <>
     {/* Scroll-1: Hero — text only, fullscreen */}
     <Hero />
@@ -328,7 +336,8 @@ const LandingPage = () => (
 
     <ClientMarquee />
   </>
-);
+  );
+};
 
 const ScrollToHash = () => {
   const { pathname, hash } = useLocation();

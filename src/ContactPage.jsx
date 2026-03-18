@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSEO } from './hooks/useSEO';
 import { gsap } from 'gsap';
 import { MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
 
 const ContactPage = () => {
+    useSEO({
+        title: "Contact Sales & Support | InfinityX",
+        description: "Get in touch with our enterprise team to construct bespoke IT and interactive display solutions for your organization. Dedicated support and sales contact.",
+        keywords: "Contact InfinityX, Matrix Edge Contact, IT Infrastructure Sales, Interactive Display Quote"
+    });
     const [status, setStatus] = useState('');
     const [inquiryType, setInquiryType] = useState('Interactive Displays');
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -130,28 +136,28 @@ const ContactPage = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">First Name</label>
-                                        <input type="text" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Jane" />
+                                        <input type="text" autoComplete="given-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Jane" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Last Name</label>
-                                        <input type="text" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Doe" />
+                                        <input type="text" autoComplete="family-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Doe" />
                                     </div>
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Email Address</label>
-                                    <input type="email" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="jane@company.com" />
+                                    <input type="email" autoComplete="email" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="jane@company.com" />
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Phone Number</label>
-                                    <input type="tel" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="+91 90000 00000" />
+                                    <input type="tel" autoComplete="tel" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="+91 90000 00000" />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Organization Name</label>
-                                        <input type="text" className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Company Ltd." />
+                                        <input type="text" autoComplete="organization" className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Company Ltd." />
                                     </div>
                                     <div className="relative">
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Inquiry Type</label>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useSEO } from './hooks/useSEO';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -96,6 +97,11 @@ const ServiceSection = ({ image, imageAlt, badge, title, description, features, 
 };
 
 const ServicesPage = () => {
+    useSEO({
+        title: "Digital Solutions & Integration Services | InfinityX",
+        description: "Explore our comprehensive IT infrastructure, networking, and campus surveillance solutions. We provide end-to-end integration for education and enterprises.",
+        keywords: "IT Infrastructure, Campus Surveillance, Networking Solutions, Education Technology, SmartClass Setup"
+    });
     return (
         <div className="bg-background min-h-screen text-foreground selection:bg-[#FF9F1B]/20 pt-0">
 

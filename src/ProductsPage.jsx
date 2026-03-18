@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSEO } from './hooks/useSEO';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -778,12 +779,12 @@ const EnquiryForm = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">First Name</label>
-                                    <input type="text" required placeholder="Jane"
+                                    <input type="text" autoComplete="given-name" required placeholder="Jane"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Last Name</label>
-                                    <input type="text" required placeholder="Doe"
+                                    <input type="text" autoComplete="family-name" required placeholder="Doe"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                             </div>
@@ -791,19 +792,19 @@ const EnquiryForm = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Email Address</label>
-                                    <input type="email" required placeholder="jane@school.edu"
+                                    <input type="email" autoComplete="email" required placeholder="jane@school.edu"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Phone</label>
-                                    <input type="tel" required placeholder="+91 90000 00000"
+                                    <input type="tel" autoComplete="tel" required placeholder="+91 90000 00000"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                             </div>
 
                             <div>
                                 <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Organization / School Name</label>
-                                <input type="text" placeholder="Greenfield High School"
+                                <input type="text" autoComplete="organization" placeholder="Greenfield High School"
                                     className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                             </div>
 
@@ -881,6 +882,11 @@ const EnquiryForm = () => {
 // ROOT — ProductsPage
 // ═══════════════════════════════════════════════════════════════════════
 const ProductsPage = () => {
+    useSEO({
+        title: "Interactive Displays & Smart Boards | InfinityX",
+        description: "Compare our Eco Series, C-Series, and Pro Series interactive displays. Engineered for education and corporate environments with 4K UHD, AI features, and multi-touch.",
+        keywords: "Interactive displays comparison, smart board specs, EDLA certified displays, InfinityX Pro Series, C-Series"
+    });
     const [activeTab, setActiveTab] = useState('value');
     const tableRef = useRef(null);
 
