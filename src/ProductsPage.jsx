@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { useSEO } from './hooks/useSEO';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
@@ -685,6 +686,7 @@ const EnquiryForm = () => {
     const [selectedSize, setSelectedSize] = useState('75"');
     const [status, setStatus] = useState('');
     const ref = useRef(null);
+    const formRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -699,10 +701,26 @@ const EnquiryForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setStatus('Sending...');
-        setTimeout(() => {
-            setStatus('Request sent! We\'ll contact you shortly.');
-            setTimeout(() => setStatus(''), 4000);
-        }, 1500);
+
+        emailjs.sendForm(
+            'service_tfth6kk',
+            'template_86frk1m',
+            formRef.current,
+            'KeWjLxCc4wCu9iMxQ'
+        )
+            .then(() => {
+                setStatus('Request sent! We\'ll contact you shortly.');
+                setTimeout(() => {
+                    setStatus('');
+                    e.target.reset();
+                    setSelectedSeries('Pro Series');
+                    setSelectedSize('75"');
+                }, 3000);
+            }, (error) => {
+                console.error('EmailJS Error:', error.text);
+                setStatus('Failed to send. Please try again.');
+                setTimeout(() => setStatus(''), 3000);
+            });
     };
 
     const seriesOptions = ['Value Series', 'C-Series', 'Pro Series'];
@@ -775,16 +793,17 @@ const EnquiryForm = () => {
 
                     {/* Right: Form */}
                     <div className="lg:w-3/5 bg-[#F9F9F9] p-10 md:p-14">
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                            <input type="hidden" name="inquiry_type" value={`Interested Series: ${selectedSeries} | Size: ${selectedSize}`} />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">First Name</label>
-                                    <input type="text" autoComplete="given-name" required placeholder="Jane"
+                                    <input type="text" name="first_name" autoComplete="given-name" required placeholder="Jane"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Last Name</label>
-                                    <input type="text" autoComplete="family-name" required placeholder="Doe"
+                                    <input type="text" name="last_name" autoComplete="family-name" required placeholder="Doe"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                             </div>
@@ -792,19 +811,19 @@ const EnquiryForm = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Email Address</label>
-                                    <input type="email" autoComplete="email" required placeholder="jane@school.edu"
+                                    <input type="email" name="user_email" autoComplete="email" required placeholder="jane@school.edu"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Phone</label>
-                                    <input type="tel" autoComplete="tel" required placeholder="+91 90000 00000"
+                                    <input type="tel" name="phone_number" autoComplete="tel" required placeholder="+91 90000 00000"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                                 </div>
                             </div>
 
                             <div>
                                 <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Organization / School Name</label>
-                                <input type="text" autoComplete="organization" placeholder="Greenfield High School"
+                                <input type="text" name="organization" autoComplete="organization" placeholder="Greenfield High School"
                                     className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
                             </div>
 
@@ -851,6 +870,7 @@ const EnquiryForm = () => {
                             <div>
                                 <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Message (Optional)</label>
                                 <textarea
+                                    name="message"
                                     rows={3}
                                     placeholder="Any specific requirements or questions?"
                                     className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm resize-none"

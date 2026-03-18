@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import { useSEO } from './hooks/useSEO';
 import { gsap } from 'gsap';
 import { MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
@@ -13,6 +14,7 @@ const ContactPage = () => {
     const [inquiryType, setInquiryType] = useState('Interactive Displays');
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const formRef = useRef(null);
+    const actualFormRef = useRef(null);
     const textRef = useRef(null);
 
     useEffect(() => {
@@ -39,12 +41,25 @@ const ContactPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setStatus('Sending...');
-        setTimeout(() => {
-            setStatus('Success! We will contact you soon.');
-            setTimeout(() => {
-                setStatus('');
-            }, 3000);
-        }, 1500);
+
+        emailjs.sendForm(
+            'service_tfth6kk',
+            'template_86frk1m',
+            actualFormRef.current,
+            'KeWjLxCc4wCu9iMxQ'
+        )
+            .then(() => {
+                setStatus('Success! We will contact you soon.');
+                setTimeout(() => {
+                    setStatus('');
+                    e.target.reset();
+                    setInquiryType('Interactive Displays');
+                }, 3000);
+            }, (error) => {
+                console.error('EmailJS Error:', error.text);
+                setStatus('Failed to send. Please try again.');
+                setTimeout(() => setStatus(''), 3000);
+            });
     };
 
     const options = ['Interactive Displays', 'Campus Infrastructure', 'Digital Signage', 'Other Services'];
@@ -132,32 +147,33 @@ const ContactPage = () => {
                             {/* Inner decorative blur */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-background rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
-                            <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                            <form ref={actualFormRef} onSubmit={handleSubmit} className="space-y-6 relative z-10">
+                                <input type="hidden" name="inquiry_type" value={inquiryType} />
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">First Name</label>
-                                        <input type="text" autoComplete="given-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Jane" />
+                                        <input type="text" name="first_name" autoComplete="given-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Jane" />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Last Name</label>
-                                        <input type="text" autoComplete="family-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Doe" />
+                                        <input type="text" name="last_name" autoComplete="family-name" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Doe" />
                                     </div>
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Email Address</label>
-                                    <input type="email" autoComplete="email" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="jane@company.com" />
+                                    <input type="email" name="user_email" autoComplete="email" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="jane@company.com" />
                                 </div>
 
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Phone Number</label>
-                                    <input type="tel" autoComplete="tel" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="+91 90000 00000" />
+                                    <input type="tel" name="phone_number" autoComplete="tel" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="+91 90000 00000" />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Organization Name</label>
-                                        <input type="text" autoComplete="organization" className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Company Ltd." />
+                                        <input type="text" name="organization" autoComplete="organization" className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="Company Ltd." />
                                     </div>
                                     <div className="relative">
                                         <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Inquiry Type</label>
@@ -192,6 +208,7 @@ const ContactPage = () => {
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Message (Optional)</label>
                                     <textarea
+                                        name="message"
                                         className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium resize-none"
                                         placeholder="How can we help you?"
                                         rows={4}
