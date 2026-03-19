@@ -18,11 +18,10 @@ gsap.registerPlugin(ScrollTrigger);
 const BASE = import.meta.env.BASE_URL;
 
 // ─── IMAGES ──────────────────────────────────────────────────────────────────
-// Value Series: one image per size (all map to ID.jpg — no separate size images)
 const VALUE_IMAGES = {
-    '65"': `${BASE}images/ID.jpeg`,
-    '75"': `${BASE}images/ID.jpeg`,
-    '86"': `${BASE}images/ID.jpeg`,
+    '65"': `${BASE}images/ID.png`,
+    '75"': `${BASE}images/ID.png`,
+    '86"': `${BASE}images/ID.png`,
 };
 const CSERIES_IMAGES = {
     '65"': `${BASE}images/ID3.jpg`,
