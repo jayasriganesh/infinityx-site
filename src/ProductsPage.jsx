@@ -20,9 +20,9 @@ const BASE = import.meta.env.BASE_URL;
 // ─── IMAGES ──────────────────────────────────────────────────────────────────
 // Value Series: one image per size (all map to ID.jpg — no separate size images)
 const VALUE_IMAGES = {
-    '65"': `${BASE}images/ID.jpg`,
-    '75"': `${BASE}images/ID.jpg`,
-    '86"': `${BASE}images/ID.jpg`,
+    '65"': `${BASE}images/ID.jpeg`,
+    '75"': `${BASE}images/ID.jpeg`,
+    '86"': `${BASE}images/ID.jpeg`,
 };
 const CSERIES_IMAGES = {
     '65"': `${BASE}images/ID3.jpg`,
@@ -749,7 +749,7 @@ const EnquiryForm = () => {
                                         <Phone className="w-4 h-4 text-[#FF9F1B]" />
                                     </div>
                                     <div>
-                                        <p className="text-white font-bold text-sm">+91 9292252880</p>
+                                        <p className="text-white font-bold text-sm">+91 9292252880<br />+91 9533688751</p>
                                         <p className="text-white/40 text-xs font-medium">Mon–Sat, 9am–6pm IST</p>
                                     </div>
                                 </div>
@@ -758,7 +758,7 @@ const EnquiryForm = () => {
                                         <Mail className="w-4 h-4 text-[#FF9F1B]" />
                                     </div>
                                     <div>
-                                        <p className="text-white font-bold text-sm">matrixedgevij@gmail.com</p>
+                                        <p className="text-white font-bold text-sm">contact@infinityxglobal.com</p>
                                         <p className="text-white/40 text-xs font-medium">Response within 4 hours</p>
                                     </div>
                                 </div>
@@ -816,8 +816,17 @@ const EnquiryForm = () => {
                                 </div>
                                 <div>
                                     <label className="block text-xs font-bold text-foreground/60 mb-2 uppercase tracking-wide">Phone</label>
-                                    <input type="tel" name="phone_number" autoComplete="tel" required placeholder="+91 90000 00000"
-                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm" />
+                                    <input
+                                        type="tel"
+                                        name="phone_number"
+                                        autoComplete="tel"
+                                        required
+                                        maxLength={10}
+                                        pattern="[0-9]{10}"
+                                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10)}
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-3.5 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium text-sm"
+                                        placeholder="9292252880"
+                                    />
                                 </div>
                             </div>
 

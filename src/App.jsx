@@ -249,8 +249,8 @@ const Footer = () => {
             <div className="text-white/70 text-sm font-medium mb-8 space-y-2">
               <p>APIIC Industrial area C4/110, 100 Feet Rd</p>
               <p>Vijayawada-520007</p>
-              <p>Mobile: +91 9292252880</p>
-              <p>Email: <a href="mailto:matrixedgevij@gmail.com" className="hover:text-white transition-colors">matrixedgevij@gmail.com</a></p>
+              <p>Mobile: +91 9292252880 / +91 9533688751</p>
+              <p>Email: <a href="mailto:contact@infinityxglobal.com" className="hover:text-white transition-colors">contact@infinityxglobal.com</a></p>
             </div>
           </div>
 

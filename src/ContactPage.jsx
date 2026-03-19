@@ -113,7 +113,7 @@ const ContactPage = () => {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-foreground mb-1">Phone</h4>
-                                        <p className="text-foreground/70 font-medium leading-relaxed text-sm">+91 9292252880</p>
+                                        <p className="text-foreground/70 font-medium leading-relaxed text-sm">+91 9292252880<br />+91 9533688751</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
@@ -123,7 +123,7 @@ const ContactPage = () => {
                                     <div>
                                         <h4 className="font-bold text-foreground mb-1">Email</h4>
                                         <p className="text-foreground/70 font-medium leading-relaxed text-sm">
-                                            <a href="mailto:matrixedgevij@gmail.com" className="hover:text-[#FF9F1B] transition-colors">matrixedgevij@gmail.com</a>
+                                            <a href="mailto:contact@infinityxglobal.com" className="hover:text-[#FF9F1B] transition-colors">contact@infinityxglobal.com</a>
                                         </p>
                                     </div>
                                 </div>
@@ -167,7 +167,17 @@ const ContactPage = () => {
 
                                 <div>
                                     <label className="block text-sm font-bold text-foreground/80 mb-2 uppercase tracking-wide">Phone Number</label>
-                                    <input type="tel" name="phone_number" autoComplete="tel" required className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium" placeholder="+91 90000 00000" />
+                                    <input
+                                        type="tel"
+                                        name="phone_number"
+                                        autoComplete="tel"
+                                        required
+                                        maxLength={10}
+                                        pattern="[0-9]{10}"
+                                        onInput={(e) => e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10)}
+                                        className="w-full bg-background border border-foreground/10 rounded-xl px-5 py-4 outline-none focus:border-[#FF9F1B] focus:ring-1 focus:ring-[#FF9F1B]/20 transition-all text-foreground placeholder:text-foreground/30 font-medium"
+                                        placeholder="9292252880"
+                                    />
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
