@@ -36,11 +36,15 @@ const NAV_ITEMS = [
     ],
   },
   {
+    label: 'Our Clients',
+    to: '/clients',
+  },
+  {
     label: 'Company',
     to: '/about',
     children: [
       { label: 'About Us', to: '/about' },
-      { label: 'Our Clients', to: '/clients' },
+      { label: 'Contact Us', to: '/contact' },
     ],
   },
 ];
@@ -129,7 +133,7 @@ const Navbar = () => {
     setMobileOpen(false);
     // hash navigation requires manual scroll after route change
     const [path, hash] = to.split('#');
-    navigate(path + (hash ? '' : ''));
+    navigate(path);
     if (hash) {
       setTimeout(() => {
         const el = document.getElementById(hash);
@@ -225,18 +229,18 @@ const Navbar = () => {
             mobileOpen ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="px-6 py-2 flex flex-col pb-6">
+          <div className="px-6 flex flex-col pt-2 pb-8">
             {NAV_ITEMS.map((item) => (
-              <div key={item.label} className="border-b border-foreground/8 last:border-0 overflow-hidden">
+              <div key={item.label} className="border-b border-foreground/5 last:border-0">
                 <button
                   onClick={() => item.children ? toggleMobileAccordion(item.label) : handleMobileLeafClick(item.to)}
-                  className="w-full flex items-center justify-between py-4.5 text-[15px] font-bold text-foreground hover:text-[#FF9F1B] transition-colors"
+                  className="w-full flex items-center justify-between py-5 text-[15px] font-bold text-foreground hover:text-[#FF9F1B] transition-colors"
                 >
-                  <span className="py-2">{item.label}</span>
+                  <span className="">{item.label}</span>
                   {item.children && (
                     <ChevronRight 
                       size={18} 
-                      className={`text-foreground/40 transition-transform duration-200 ${expandedItems[item.label] ? 'rotate-90' : ''}`} 
+                      className={`text-foreground/30 transition-transform duration-200 ${expandedItems[item.label] ? 'rotate-90' : ''}`} 
                     />
                   )}
                 </button>
@@ -244,20 +248,20 @@ const Navbar = () => {
                 {item.children && (
                   <div
                     className={`transition-all duration-300 ease-in-out pl-4 ${
-                      expandedItems[item.label] ? 'max-h-96 opacity-100 pb-5' : 'max-h-0 opacity-0 overflow-hidden'
+                      expandedItems[item.label] ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0 overflow-hidden'
                     }`}
                   >
                      <button
                         onClick={() => handleMobileLeafClick(item.to)}
-                        className="w-full text-left py-2.5 text-xs uppercase tracking-widest font-bold text-[#FF9F1B] block mb-1"
+                        className="w-full text-left py-2 text-[11px] uppercase tracking-[0.15em] font-bold text-[#FF9F1B]/70 block mb-2"
                       >
-                        Explore All &rarr;
+                        Explore Overview &rarr;
                       </button>
                     {item.children.map((child) => (
                       <button
                         key={child.to}
                         onClick={() => handleMobileLeafClick(child.to)}
-                        className="w-full text-left py-3 text-[14px] font-semibold text-foreground/70 hover:text-[#FF9F1B] focus:text-[#FF9F1B] transition-colors block"
+                        className="w-full text-left py-3 text-[14px] font-semibold text-foreground/70 hover:text-[#FF9F1B] transition-colors flex items-center gap-3 before:w-1 before:h-1 before:bg-foreground/20 before:rounded-full"
                       >
                         {child.label}
                       </button>
@@ -267,14 +271,15 @@ const Navbar = () => {
               </div>
             ))}
             
-            {/* Added a mobile footer link for quick contact */}
-            <div className="mt-8 pt-6 border-t border-foreground/8">
+            {/* CTA Button */}
+            <div className="mt-6">
               <Link
-                  to="/contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="w-full flex items-center justify-between py-4 text-base font-bold text-[#FF9F1B]"
-                >
-                  Schedule an Enterprise Demo <ArrowRight size={18} />
+                to="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="w-full flex items-center justify-between p-4 rounded-2xl bg-[#FF9F1B]/5 border border-[#FF9F1B]/20 text-sm font-bold text-[#FF9F1B] group active:scale-95 transition-all"
+              >
+                Schedule an Enterprise Demo 
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
             
