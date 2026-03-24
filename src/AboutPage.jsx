@@ -50,13 +50,13 @@ const AboutPage = () => {
         <div className="bg-background min-h-screen text-foreground font-sans selection:bg-[#FF9F1B]/20 pb-24">
 
             {/* 1. Header & Logo */}
-            <header className="pt-24 md:pt-32 pb-12 md:pb-16 px-6 text-left max-w-7xl mx-auto flex flex-col items-start">
+            <header className="pt-24 md:pt-32 pb-8 md:pb-16 px-6 text-left max-w-7xl mx-auto flex flex-col items-start">
                 <img
                     src={`${import.meta.env.BASE_URL}images/INFINITYX.png`}
                     alt="Matrix Edge Computers / InfinityX Logo"
                     className="h-24 md:h-32 object-contain mb-8 filter drop-shadow-sm fade-up"
                 />
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-foreground fade-up">
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 tracking-tight text-foreground fade-up">
                     About Us
                 </h1>
                 <p className="text-xl text-foreground/70 font-medium leading-relaxed max-w-3xl fade-up">
@@ -65,7 +65,7 @@ const AboutPage = () => {
             </header>
 
             {/* 2. Main Narrative based on company.md */}
-            <main className="max-w-7xl mx-auto px-6 space-y-12 md:space-y-20">
+            <main className="max-w-7xl mx-auto px-6 space-y-12 md:space-y-24">
 
                 <section className="space-y-6 text-lg text-foreground/80 font-medium leading-relaxed section-anim text-justify">
                     <p>
@@ -112,7 +112,7 @@ const AboutPage = () => {
                     <p className="text-lg text-foreground/80 font-medium leading-relaxed mb-10 text-justify">
                         In today's fast-paced digital landscape, reliable IT infrastructure is the backbone of any successful organization. We provide a comprehensive suite of hardware, software, and enterprise-grade networking solutions tailored to your specific operational needs. From outfitting campuses with robust WiFi networks to providing end-to-end network integration and high-performance computing hardware, our solutions ensure seamless connectivity and sustained productivity.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                         <div className="space-y-4">
                             <h3 className="text-xl font-bold text-foreground">Desktops, Laptops & Servers</h3>
                             <ul className="space-y-3">

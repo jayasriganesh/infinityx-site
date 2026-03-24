@@ -8,7 +8,7 @@ import { Shield, Wifi, Check, Cpu, ArrowRight, ChevronRight, CheckCircle2 } from
 gsap.registerPlugin(ScrollTrigger);
 
 // Reusable scroll section for internal pages to maintain cinematic feel
-const ServiceSection = ({ image, imageAlt, badge, title, description, features, partners, ctaLabel, ctaTo, imageOnRight = true }) => {
+const ServiceSection = ({ id, image, imageAlt, badge, title, description, features, partners, ctaLabel, ctaTo, imageOnRight = true }) => {
     const ref = useRef(null);
 
     useEffect(() => {
@@ -47,12 +47,12 @@ const ServiceSection = ({ image, imageAlt, badge, title, description, features, 
     }, [imageOnRight]);
 
     return (
-        <section ref={ref} className="min-h-[70vh] md:min-h-screen flex items-center bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
-            <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
+        <section id={id} ref={ref} className="py-16 px-6 lg:py-24 flex items-center bg-background border-t border-bento/50 overflow-hidden">
+            <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
                 {/* Text block */}
-                <div className="lg:[direction:ltr] lg:col-span-2 space-y-8">
-                    <h2 className="ss-text text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.1]">{title}</h2>
-                    <p className="ss-text text-lg md:text-xl text-foreground/60 font-medium max-w-xl leading-relaxed">{description}</p>
+                <div className="lg:[direction:ltr] lg:col-span-2 space-y-6 md:space-y-8">
+                    <h2 className="ss-text text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.1]">{title}</h2>
+                    <p className="ss-text text-base md:text-xl text-foreground/60 font-medium max-w-xl leading-relaxed">{description}</p>
 
                     {features && (
                         <ul className="ss-text space-y-4 pt-4">
@@ -107,6 +107,7 @@ const ServicesPage = () => {
 
             {/* Section 1: SmartClass */}
             <ServiceSection
+                id="smartclass"
                 title="AI-Powered SmartClass."
                 description="The EyeRIS A10 Pro transforms classrooms into intelligent hubs. Automate lesson planning, summarize complex content in seconds, and track student engagement with built-in behavioral AI — creating a truly hybrid-ready learning environment."
                 features={[
@@ -123,6 +124,7 @@ const ServicesPage = () => {
 
             {/* Section 2: Networking Solutions */}
             <ServiceSection
+                id="networking"
                 title="Networking Solutions."
                 description="Robust enterprise-grade connectivity for complete campus coverage. We deliver high-speed, secure, and manageable networking architectures."
                 features={[
@@ -138,6 +140,7 @@ const ServicesPage = () => {
 
             {/* Section 3: Campus Surveillance */}
             <ServiceSection
+                id="surveillance"
                 title="Campus Surveillance."
                 description="Intelligent security architectures providing total peace of mind. Our premium camera solutions ensure 24/7 monitoring with AI detection capabilities."
                 features={[

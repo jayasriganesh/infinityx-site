@@ -65,19 +65,19 @@ const ContactPage = () => {
     const options = ['Interactive Displays', 'Campus Infrastructure', 'Digital Signage', 'Other Services'];
 
     return (
-        <div className="pt-24 pb-16 md:pt-32 md:pb-24 px-6 min-h-screen bg-background">
+        <div className="pt-28 pb-16 lg:pt-32 lg:pb-24 px-6 bg-background">
             <div className="max-w-7xl mx-auto">
                 {/* Header Sequence */}
                 <div className="text-center mb-16">
                     <span className="anim-up inline-block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-4">Get In Touch</span>
-                    <h1 className="anim-up text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">Contact Sales.</h1>
+                    <h1 className="anim-up text-4xl md:text-6xl lg:text-7xl font-display font-bold mb-6 tracking-tight text-foreground">Contact Sales.</h1>
                     <p className="anim-up text-xl text-foreground/60 max-w-2xl mx-auto font-medium leading-relaxed">
                         Ready to elevate your infrastructure? Our enterprise team is here to construct bespoke solutions for your organization.
                     </p>
                 </div>
 
                 {/* Products Visual Banner */}
-                <div className="anim-up mb-20 relative flex items-center justify-center">
+                <div className="anim-up mb-10 md:mb-20 relative flex items-center justify-center">
                     <img
                         src={`${import.meta.env.BASE_URL}images/contact-sales.png`}
                         alt="InfinityX Product Solutions"
@@ -85,7 +85,7 @@ const ContactPage = () => {
                     />
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-24">
                     {/* Contact Details (Left side) */}
                     <div ref={textRef} className="lg:col-span-2 space-y-12 h-full flex flex-col justify-center relative">
                         {/* Decorative blur */}
@@ -143,7 +143,7 @@ const ContactPage = () => {
 
                     {/* Form Area (Right side) */}
                     <div ref={formRef} className="lg:col-span-3">
-                        <div className="bg-bento border border-foreground/10 rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+                        <div className="bg-bento border border-foreground/10 rounded-3xl p-6 md:p-12 shadow-xl relative overflow-hidden">
                             {/* Inner decorative blur */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-background rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 

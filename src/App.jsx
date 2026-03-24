@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { ChevronRight, Monitor, Shield, Network, Mail, ArrowRight, Video, Server, Play, Cpu, PenTool, LayoutTemplate, Wifi, Menu, X } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { ChevronRight, ChevronLeft, Monitor, Shield, Network, Mail, ArrowRight, Video, Server, Play, Cpu, PenTool, LayoutTemplate, Wifi, Menu, X } from 'lucide-react';
 import ProductsPage from './ProductsPage';
 import AboutPage from './AboutPage';
 import ServicesPage from './ServicesPage';
@@ -14,46 +14,272 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+// ─── NAV DATA ────────────────────────────────────────────────────────────────
+const NAV_ITEMS = [
+  {
+    label: 'Interactive Displays',
+    to: '/products',
+    children: [
+      { label: 'Value Series', to: '/products#value' },
+      { label: 'C-Series', to: '/products#cseries' },
+      { label: 'Pro Series', to: '/products#pro' },
+      { label: 'Compare All', to: '/products#compare' },
+    ],
+  },
+  {
+    label: 'Digital Solutions',
+    to: '/services',
+    children: [
+      { label: 'AI-Powered SmartClass', to: '/services#smartclass' },
+      { label: 'Networking Solutions', to: '/services#networking' },
+      { label: 'Campus Surveillance', to: '/services#surveillance' },
+    ],
+  },
+  {
+    label: 'Company',
+    to: '/about',
+    children: [
+      { label: 'About Us', to: '/about' },
+      { label: 'Our Clients', to: '/clients' },
+    ],
+  },
+];
+
+// ─── DESKTOP MEGA MENU ────────────────────────────────────────────────────────
+const DesktopMegaMenu = ({ item, isOpen, onClose }) => {
+  if (!item?.children) return null;
+
+  // Decide which image to show based on the top-level label
+  const categoryImage = 
+    item.label === 'Interactive Displays' ? `${import.meta.env.BASE_URL}images/ID2.png` :
+    item.label === 'Digital Solutions' ? `${import.meta.env.BASE_URL}images/Network.png` :
+    `${import.meta.env.BASE_URL}images/home_page_final.jpeg`;
 
   return (
-    <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F9F9F9] border-b border-bento/50 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
-          <Link to="/" className="flex items-center">
-            <img src={`${import.meta.env.BASE_URL}images/INFINITYX.png`} alt="InfinityX" className="h-20" />
-          </Link>
-          <div className="hidden md:flex space-x-8 text-sm font-medium text-foreground/80">
-            <Link to="/products" className="hover:text-[#FF9F1B] transition-colors">Interactive Displays</Link>
-            <Link to="/services" className="hover:text-[#FF9F1B] transition-colors">Digital Solutions</Link>
-            <Link to="/about" className="hover:text-[#FF9F1B] transition-colors">Company</Link>
-            <Link to="/clients" className="hover:text-[#FF9F1B] transition-colors">Clients</Link>
-          </div>
-          <div className="hidden md:flex">
-            <Link to="/contact" className="bg-[#FF9F1B] text-white px-5 py-2.5 rounded-full text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 transition-all hover:scale-105 active:scale-95 font-bold shadow-md shadow-[#FF9F1B]/20">
-              Contact Sales <ChevronRight size={16} />
-            </Link>
-          </div>
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-foreground focus:outline-none">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+    <div
+      className={`fixed top-20 left-0 w-full bg-white shadow-2xl border-b border-foreground/5 shadow-black/5 overflow-hidden transition-all duration-300 origin-top cursor-default ${
+        isOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6 py-10 flex gap-8 lg:gap-16">
+        {/* Left Side: Links */}
+        <div className="w-1/3 lg:w-1/4 border-r border-foreground/10 pr-8">
+          <h3 className="text-sm font-bold text-foreground/40 uppercase tracking-widest mb-6">{item.label}</h3>
+          <div className="space-y-2">
+            {item.children.map((child) => (
+              <Link
+                key={child.to}
+                to={child.to}
+                onClick={onClose}
+                className="flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm font-bold text-foreground/80 hover:bg-[#FF9F1B]/5 hover:text-[#FF9F1B] transition-colors group"
+              >
+                {child.label}
+                <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
+            ))}
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden bg-background border-b border-bento/50 px-6 py-4 flex flex-col space-y-4">
-            <Link to="/products" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Interactive Displays</Link>
-            <Link to="/services" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Digital Solutions</Link>
-            <Link to="/about" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Company</Link>
-            <Link to="/clients" onClick={() => setIsOpen(false)} className="text-foreground/80 font-medium hover:text-[#FF9F1B]">Clients</Link>
-            <Link to="/contact" onClick={() => setIsOpen(false)} className="bg-foreground text-background px-4 py-3 rounded-full text-sm flex items-center justify-center gap-2 hover:bg-foreground/90 transition-colors font-bold">
+        {/* Right Side: Featured Image & Promo */}
+        <div className="flex-1 flex items-center justify-center p-8 bg-[#F9F9F9] rounded-2xl relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#FF9F1B]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="flex items-center gap-8 lg:gap-16 z-10 w-full max-w-3xl">
+               <div className="flex-1 space-y-4">
+                  <span className="px-3 py-1 bg-[#FF9F1B]/10 text-[#FF9F1B] text-xs font-bold rounded-full uppercase tracking-widest">Featured Explore</span>
+                  <h4 className="text-2xl font-display font-bold text-foreground">Discover {item.label}</h4>
+                  <p className="text-sm text-foreground/60 font-medium leading-relaxed">
+                    Explore our premium range of advanced hardware and enterprise-grade integrations designed to transform your operations and learning environments.
+                  </p>
+               </div>
+               <img src={categoryImage} alt={item.label} className="w-48 lg:w-64 h-auto object-contain drop-shadow-xl group-hover:scale-105 transition-transform duration-500" />
+            </div>
+        </div>
+
+      </div>
+    </div>
+  );
+};
+
+// ─── NAVBAR ──────────────────────────────────────────────────────────────────
+const Navbar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  // expandedItems tracks which mobile accordion menus are open
+  const [expandedItems, setExpandedItems] = useState({});
+  const [desktopHover, setDesktopHover] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Close everything on route change
+  useEffect(() => {
+    setMobileOpen(false);
+    setExpandedItems({});
+  }, [location]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const toggleMobileAccordion = (label) => {
+    setExpandedItems(prev => ({ ...prev, [label]: !prev[label] }));
+  };
+
+  const handleMobileLeafClick = (to) => {
+    setMobileOpen(false);
+    // hash navigation requires manual scroll after route change
+    const [path, hash] = to.split('#');
+    navigate(path + (hash ? '' : ''));
+    if (hash) {
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  };
+
+  return (
+    <>
+      {/* ── Desktop & Mobile Navbar Container ── */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F9F9F9] border-b border-bento/50">
+
+        {/* ── DESKTOP NAV (hidden on mobile) ── */}
+        <div className="hidden md:flex max-w-7xl mx-auto px-6 h-20 items-center justify-between gap-8">
+          <Link to="/" className="flex items-center shrink-0">
+            <img src={`${import.meta.env.BASE_URL}images/INFINITYX.png`} alt="InfinityX" className="h-16" />
+          </Link>
+
+          <div className="flex items-center gap-1 text-sm font-semibold text-foreground/70 h-full">
+            {NAV_ITEMS.map((item) => (
+              <div
+                key={item.label}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => setDesktopHover(item.label)}
+                onMouseLeave={() => setDesktopHover(null)}
+              >
+                <Link
+                  to={item.to}
+                  className="flex items-center gap-1 px-4 py-2 rounded-xl hover:text-[#FF9F1B] hover:bg-[#FF9F1B]/5 transition-colors"
+                >
+                  {item.label}
+                  {item.children && (
+                    <ChevronRight
+                      size={14}
+                      className={`transition-transform duration-200 ${
+                        desktopHover === item.label ? 'rotate-90' : ''
+                      }`}
+                    />
+                  )}
+                </Link>
+                <DesktopMegaMenu
+                  item={item}
+                  isOpen={desktopHover === item.label}
+                  onClose={() => setDesktopHover(null)}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex shrink-0">
+            <Link
+              to="/contact"
+              className="bg-[#FF9F1B] text-white px-5 py-2.5 rounded-full text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 transition-all hover:scale-105 active:scale-95 font-bold shadow-md shadow-[#FF9F1B]/20"
+            >
               Contact Sales <ChevronRight size={16} />
             </Link>
           </div>
-        )}
+        </div>
+
+        {/* ── MOBILE NAV (hidden on desktop) ── */}
+        <div className="md:hidden relative flex items-center justify-between px-4 h-16">
+          {/* Hamburger toggle — top left */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 -ml-1 text-foreground z-10"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+
+          {/* Logo — absolutely centered */}
+          <Link
+            to="/"
+            onClick={() => setMobileOpen(false)}
+            className="absolute left-1/2 -translate-x-1/2"
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}images/INFINITYX.png`}
+              alt="InfinityX"
+              className="h-9 object-contain"
+            />
+          </Link>
+
+          {/* Empty spacer to keep logo truly centered */}
+          <div className="w-10" />
+        </div>
+
+
+        {/* ── Mobile Expandable Accordion Menu ── */}
+        <div 
+          className={`md:hidden overflow-y-auto bg-white border-b border-foreground/5 shadow-2xl transition-all duration-300 ease-in-out ${
+            mobileOpen ? 'max-h-[calc(100vh-5rem)] opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="px-6 py-2 flex flex-col pb-6">
+            {NAV_ITEMS.map((item) => (
+              <div key={item.label} className="border-b border-foreground/8 last:border-0 overflow-hidden">
+                <button
+                  onClick={() => item.children ? toggleMobileAccordion(item.label) : handleMobileLeafClick(item.to)}
+                  className="w-full flex items-center justify-between py-4.5 text-[15px] font-bold text-foreground hover:text-[#FF9F1B] transition-colors"
+                >
+                  <span className="py-2">{item.label}</span>
+                  {item.children && (
+                    <ChevronRight 
+                      size={18} 
+                      className={`text-foreground/40 transition-transform duration-200 ${expandedItems[item.label] ? 'rotate-90' : ''}`} 
+                    />
+                  )}
+                </button>
+                {/* Accordion content */}
+                {item.children && (
+                  <div
+                    className={`transition-all duration-300 ease-in-out pl-4 ${
+                      expandedItems[item.label] ? 'max-h-96 opacity-100 pb-5' : 'max-h-0 opacity-0 overflow-hidden'
+                    }`}
+                  >
+                     <button
+                        onClick={() => handleMobileLeafClick(item.to)}
+                        className="w-full text-left py-2.5 text-xs uppercase tracking-widest font-bold text-[#FF9F1B] block mb-1"
+                      >
+                        Explore All &rarr;
+                      </button>
+                    {item.children.map((child) => (
+                      <button
+                        key={child.to}
+                        onClick={() => handleMobileLeafClick(child.to)}
+                        className="w-full text-left py-3 text-[14px] font-semibold text-foreground/70 hover:text-[#FF9F1B] focus:text-[#FF9F1B] transition-colors block"
+                      >
+                        {child.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {/* Added a mobile footer link for quick contact */}
+            <div className="mt-8 pt-6 border-t border-foreground/8">
+              <Link
+                  to="/contact"
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full flex items-center justify-between py-4 text-base font-bold text-[#FF9F1B]"
+                >
+                  Schedule an Enterprise Demo <ArrowRight size={18} />
+              </Link>
+            </div>
+            
+          </div>
+        </div>
       </nav>
     </>
   );
@@ -90,16 +316,14 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="min-h-[80vh] md:h-screen flex flex-col items-center justify-center text-center overflow-hidden relative z-10 px-6 py-20 md:py-0">
+    <section ref={containerRef} className="pt-28 pb-16 lg:py-28 flex flex-col items-center justify-center text-center overflow-hidden relative z-10 px-6">
       <div className="max-w-5xl mx-auto z-10">
-        <h1 className="text-dynamic-hero text-foreground mb-6 flex flex-wrap justify-center gap-x-4">
-          <span className="hero-word inline-block">Infrastructure.</span>
-          <br className="hidden md:block" />
-          <span className="hero-word inline-block">Integrated.</span>
-          <span className="hero-word inline-block">Intelligent.</span>
-          <span className="hero-word inline-block text-[#FF9F1B]">InfinityX.</span>
+        <h1 className="text-dynamic-hero text-foreground mb-6 font-display font-bold flex flex-col items-center leading-[1.1] md:leading-[1.1]">
+          <span className="hero-word block">Infrastructure.</span>
+          <span className="hero-word block">Integrated. Intelligent.</span>
+          <span className="hero-word block text-[#FF9F1B]">InfinityX.</span>
         </h1>
-        <p className="hero-sub text-xl md:text-2xl text-foreground/60 max-w-3xl mx-auto mb-12 font-medium tracking-tight">
+        <p className="hero-sub text-lg md:text-2xl text-foreground/60 max-w-3xl mx-auto mb-10 md:mb-12 font-medium tracking-tight px-4 shadow-sm md:shadow-none bg-background/50 md:bg-transparent rounded-2xl md:rounded-none py-2 md:py-0">
           Premier system integration partner delivering high-performance<br className="hidden md:block" /> IT infrastructure and intelligent display solutions.
         </p>
         <div className="hero-sub flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -152,13 +376,13 @@ const ScrollSection = ({ image, imageAlt, badge, title, description, ctaLabel, c
   }, [imageOnRight]);
 
   return (
-    <section ref={ref} className="min-h-[70vh] md:min-h-screen flex items-center bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
-      <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
+    <section ref={ref} className="py-16 px-6 lg:py-24 flex items-center bg-background border-t border-bento/50 overflow-hidden">
+      <div className={`max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center ${!imageOnRight ? 'lg:[direction:rtl]' : ''}`}>
         {/* Text block — always LTR internally */}
         <div className="lg:[direction:ltr] lg:col-span-2 space-y-6">
           <span className="ss-text block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">{badge}</span>
-          <h2 className="ss-text text-5xl md:text-6xl lg:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.15]">{title}</h2>
-          <p className="ss-text text-lg md:text-xl text-foreground/60 font-medium max-w-xl leading-relaxed">{description}</p>
+          <h2 className="ss-text text-4xl md:text-5xl lg:text-7xl font-display font-bold tracking-tight text-foreground leading-[1.15]">{title}</h2>
+          <p className="ss-text text-base md:text-xl text-foreground/60 font-medium max-w-xl leading-relaxed">{description}</p>
           <div className="ss-text pt-2">
             <Link
               to={ctaTo}
@@ -235,6 +459,11 @@ const ClientMarquee = () => {
 
 
 const Footer = () => {
+  const location = useLocation();
+  if (location.pathname !== '/' && location.pathname !== '/about') {
+    return null;
+  }
+
   return (
     <footer className="bg-[#1D1D1F] text-white pt-16 md:pt-24 pb-8 md:pb-12 px-6">
       <div className="max-w-7xl mx-auto">

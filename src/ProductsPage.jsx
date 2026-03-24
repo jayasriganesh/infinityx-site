@@ -56,8 +56,8 @@ const Hero = ({ onExplore, onCompare }) => {
     }, []);
 
     return (
-        <section ref={ref} className="min-h-[80vh] md:min-h-screen bg-background flex items-center px-6 py-24 md:py-32 overflow-hidden">
-            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-11 gap-16 items-center">
+        <section ref={ref} className="pt-28 pb-16 lg:py-28 bg-background flex items-center px-6 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-11 gap-12 lg:gap-16 items-center">
 
                 {/* Left: Text (55%) */}
                 <div className="lg:col-span-6 space-y-8">
@@ -65,12 +65,12 @@ const Hero = ({ onExplore, onCompare }) => {
                         InfinityX · Interactive Displays
                     </span>
 
-                    <h1 className="hero-h1 font-display font-extrabold text-6xl md:text-7xl tracking-tighter text-foreground leading-[1.05]">
+                    <h1 className="hero-h1 font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter text-foreground leading-[1.05]">
                         Interactive Displays.<br />
                         Built for <span className="text-[#FF9F1B]">Every</span> Classroom.
                     </h1>
 
-                    <p className="hero-body text-lg md:text-xl text-foreground/60 font-medium max-w-lg leading-relaxed">
+                    <p className="hero-body text-base md:text-xl text-foreground/60 font-medium max-w-lg leading-relaxed">
                         Three series. One purpose — transform how teachers teach and
                         students learn, across every budget and every environment.
                     </p>
@@ -199,15 +199,15 @@ const ValueSeries = () => {
     }, []);
 
     return (
-        <section id="value" ref={ref} className="bg-background border-t border-bento/50 py-16 md:py-32 px-6 overflow-hidden">
-            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
+        <section id="value" ref={ref} className="bg-background border-t border-bento/50 py-12 md:py-32 px-6 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-24 items-center">
 
                 {/* Left: Text block */}
                 <div className="lg:col-span-2 space-y-8">
                     <span className="vs-text block text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs md:text-sm">
                         Value Series
                     </span>
-                    <h2 className="vs-text font-display font-bold text-5xl md:text-6xl tracking-tight text-foreground leading-[1.1]">
+                    <h2 className="vs-text font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.1]">
                         Smart Learning.<br />Without Compromise.
                     </h2>
                     <p className="vs-text text-lg text-foreground/60 font-medium leading-relaxed max-w-md">
@@ -246,12 +246,12 @@ const ValueSeries = () => {
                     </div>
 
                     <div className="vs-text">
-                        <Link
-                            to="/contact"
+                        <button
+                            onClick={() => document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' })}
                             className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#FF9F1B]/20"
                         >
-                            Enquire About Value Series <ArrowRight size={18} />
-                        </Link>
+                            Enquire About All Series <ArrowRight size={18} />
+                        </button>
                     </div>
                 </div>
 
@@ -303,8 +303,8 @@ const CSeries = () => {
     }, []);
 
     return (
-        <section id="cseries" ref={ref} className="bg-foreground border-t border-[#FF9F1B]/20 py-16 md:py-32 px-6 overflow-hidden">
-            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-24 items-center">
+        <section id="cseries" ref={ref} className="bg-foreground border-t border-[#FF9F1B]/20 py-12 md:py-32 px-6 overflow-hidden">
+            <div className="max-w-screen-2xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-24 items-center">
 
                 {/* Left: Panel image */}
                 <div className="cs-img relative lg:col-span-3 order-2 lg:order-1">
@@ -322,7 +322,7 @@ const CSeries = () => {
                     <span className="cs-text inline-flex items-center gap-2 text-white/60 font-bold tracking-[0.2em] uppercase text-xs md:text-sm">
                         <span className="bg-white/10 px-3 py-1 rounded-full">C-Series · Corporate</span>
                     </span>
-                    <h2 className="cs-text font-display font-bold text-5xl md:text-6xl tracking-tight text-white leading-[1.1]">
+                    <h2 className="cs-text font-display font-bold text-4xl md:text-5xl lg:text-6xl tracking-tight text-white leading-[1.1]">
                         The Boardroom.<br />The Classroom. <span className="text-[#FF9F1B]">Both.</span>
                     </h2>
                     <p className="cs-text text-lg text-white/60 font-medium leading-relaxed max-w-md">
@@ -362,12 +362,12 @@ const CSeries = () => {
                     </div>
 
                     <div className="cs-text">
-                        <Link
-                            to="/contact"
+                        <button
+                            onClick={() => document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' })}
                             className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-base hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF9F1B]/20"
                         >
-                            Enquire About C-Series <ArrowRight size={18} />
-                        </Link>
+                            Enquire About All Series <ArrowRight size={18} />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -421,14 +421,14 @@ const ProSeries = () => {
     }, []);
 
     return (
-        <section id="pro" ref={ref} className="py-16 md:py-32 px-6 bg-background border-t border-bento/50 overflow-hidden relative">
+        <section id="pro" ref={ref} className="py-12 md:py-32 px-6 bg-background border-t border-bento/50 overflow-hidden relative">
             {/* Atmospheric orange blurs */}
             <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF9F1B]/8 rounded-full blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
 
             <div className="max-w-screen-2xl mx-auto relative z-10">
                 {/* Header */}
-                <div className="text-center mb-20 space-y-4">
+                <div className="text-center mb-12 md:mb-20 space-y-4">
                     <div className="flex items-center justify-center gap-3 flex-wrap">
                         <span className="pro-text text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs">PRO SERIES</span>
                         <div className="flex gap-2">
@@ -437,16 +437,16 @@ const ProSeries = () => {
                             ))}
                         </div>
                     </div>
-                    <h2 className="pro-text font-display font-extrabold text-6xl md:text-7xl tracking-tighter text-foreground leading-[1.05]">
+                    <h2 className="pro-text font-display font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter text-foreground leading-[1.05]">
                         The Pro Series.<br /><span className="text-[#FF9F1B]">Nothing</span> Held Back.
                     </h2>
-                    <p className="pro-text text-xl text-foreground/60 font-medium max-w-2xl mx-auto leading-relaxed">
+                    <p className="pro-text text-base md:text-xl text-foreground/60 font-medium max-w-2xl mx-auto leading-relaxed">
                         The EyeRIS A10 Pro is the most advanced interactive display we offer — a fully integrated AI teaching engine built for the classrooms of tomorrow.
                     </p>
                 </div>
 
                 {/* Triple column: Hardware | Panel | AI */}
-                <div className="grid grid-cols-1 lg:grid-cols-11 gap-12 lg:gap-8 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-11 gap-10 lg:gap-8 items-center">
 
                     {/* Left: Hardware stats */}
                     <div className="pro-stats lg:col-span-3 space-y-6">
@@ -504,12 +504,12 @@ const ProSeries = () => {
 
                 {/* CTA */}
                 <div className="text-center mt-20">
-                    <Link
-                        to="/contact"
+                    <button
+                        onClick={() => document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' })}
                         className="inline-flex items-center gap-2 bg-[#FF9F1B] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-[#FF9F1B]/90 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF9F1B]/20"
                     >
-                        Enquire About Pro Series <ArrowRight size={20} />
-                    </Link>
+                        Enquire About All Series <ArrowRight size={20} />
+                    </button>
                 </div>
             </div>
         </section>
@@ -546,12 +546,12 @@ const ComparisonTable = ({ tableRef }) => {
     }, []);
 
     return (
-        <section id="compare" ref={(el) => { ref.current = el; if (tableRef) tableRef.current = el; }} className="py-16 md:py-32 px-6 bg-[#F9F9F9] border-t border-bento/50">
+        <section id="compare" ref={(el) => { ref.current = el; if (tableRef) tableRef.current = el; }} className="py-12 md:py-32 px-6 bg-[#F9F9F9] border-t border-bento/50">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-16 ct-fade">
                     <span className="text-[#FF9F1B] font-bold tracking-[0.2em] uppercase text-xs mb-4 block">Side-by-Side</span>
-                    <h2 className="font-display font-bold text-5xl tracking-tight text-foreground mb-4">Compare the Series.</h2>
-                    <p className="text-xl text-foreground/60 font-medium">Find the right panel for your space, side by side.</p>
+                    <h2 className="font-display font-bold text-3xl md:text-5xl tracking-tight text-foreground mb-4">Compare the Series.</h2>
+                    <p className="text-base md:text-xl text-foreground/60 font-medium">Find the right panel for your space, side by side.</p>
                 </div>
 
                 <div className="ct-fade overflow-x-auto rounded-3xl border border-foreground/10 shadow-xl">
@@ -603,12 +603,12 @@ const ComparisonTable = ({ tableRef }) => {
                         <p className="font-bold text-foreground text-lg mb-1">Not sure which series fits you?</p>
                         <p className="text-foreground/60 font-medium">Let our team help you pick the right panel for your space.</p>
                     </div>
-                    <Link
-                        to="/contact"
+                    <button
+                        onClick={() => document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' })}
                         className="shrink-0 bg-[#FF9F1B] text-white px-8 py-4 rounded-full font-bold text-sm flex items-center gap-2 hover:bg-[#FF9F1B]/90 hover:scale-105 transition-all shadow-lg shadow-[#FF9F1B]/20 whitespace-nowrap"
                     >
                         Get Expert Advice <ChevronRight size={16} />
-                    </Link>
+                    </button>
                 </div>
             </div>
         </section>

@@ -100,8 +100,8 @@ const ClientsPage = () => {
             {/* Hero Section */}
             <section className="pt-24 pb-12 md:pt-32 md:pb-20 px-6">
                 <div className="max-w-7xl mx-auto text-center hero-content">
-                    <h1 className="text-5xl md:text-7xl font-display font-bold mb-8 tracking-tight leading-[1.1]">
-                        Transforming <span className="text-[#FF9F1B]">Education</span> Together <br />
+                    <h1 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold mb-6 md:mb-8 tracking-tight leading-[1.1]">
+                        Transforming <span className="text-[#FF9F1B]">Education</span> Together <br className="hidden md:block"/>
                         with Our Valued Clients.
                     </h1>
                     <p className="text-xl md:text-2xl text-foreground/60 max-w-4xl mx-auto font-medium leading-relaxed">
@@ -111,9 +111,9 @@ const ClientsPage = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="py-12 md:py-20 px-6 bg-bento/30 border-y border-foreground/5">
+            <section className="py-10 md:py-20 px-6 bg-bento/30 border-y border-foreground/5">
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 stats-grid">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 stats-grid">
                         {stats.map((stat, i) => (
                             <div key={i} className="stat-card bg-background border border-foreground/10 p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow group">
                                 <stat.icon className="w-10 h-10 text-[#FF9F1B] mb-6 group-hover:scale-110 transition-transform" />
@@ -126,16 +126,16 @@ const ClientsPage = () => {
             </section>
 
             {/* Clients Section */}
-            <section className="py-16 md:py-32 px-6 relative overflow-hidden">
+            <section className="py-12 md:py-32 px-6 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto relative z-10 px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">Trusted by Schools and Educators Across India</h2>
+                    <div className="text-center mb-12 md:mb-16">
+                        <h2 className="text-3xl md:text-5xl font-display font-bold mb-4 md:mb-6">Trusted by Schools and Educators Across India</h2>
                         <div className="w-24 h-1 bg-[#FF9F1B] mx-auto rounded-full opacity-50"></div>
                     </div>
                 </div>
 
                 {/* Multi-Row Marquee */}
-                <div className="space-y-12 md:space-y-20 py-10">
+                <div className="space-y-8 md:space-y-20 py-6 md:py-10">
                     {[0, 1, 2].map((rowIndex) => {
                         const rowLogos = rowIndex === 0 ? clients.slice(0, 11) : rowIndex === 1 ? clients.slice(11, 21) : clients.slice(21);
                         return (
